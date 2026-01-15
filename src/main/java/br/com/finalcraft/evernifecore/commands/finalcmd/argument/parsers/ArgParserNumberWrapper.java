@@ -5,7 +5,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgInfo;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParser;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgParseException;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ArgParserNumberWrapper extends ArgParser<NumberWrapper> {
     }
 
     @Override
-    public NumberWrapper parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public NumberWrapper parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
 
         Number number = ARG_PARSER_NUMBER.parserArgument(sender, argumento);
 

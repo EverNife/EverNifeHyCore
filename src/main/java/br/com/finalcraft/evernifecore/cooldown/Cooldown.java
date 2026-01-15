@@ -10,7 +10,7 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
@@ -88,21 +88,21 @@ public abstract class Cooldown implements Salvable {
     @FCLocale(lang = LocaleType.EN_US, text = "§cYou need to wait more %discursive_time%§c to do this!")
     @FCLocale(lang = LocaleType.PT_BR, text = "§cVocê precisa esperar mais %discursive_time%§c para fazer isto!")
     private static LocaleMessage YOU_NEED_TO_WAIT_MORE_TIME;
-    public Cooldown warnPlayer(CommandSender commandSender){
+    public Cooldown warnPlayer(FCommandSender commandSender){
         YOU_NEED_TO_WAIT_MORE_TIME
                 .addPlaceholder("%discursive_time%", getFCTimeFrame().getFormattedDiscursive("§6","§c"))
                 .send(commandSender);
         return this;
     }
 
-    public Cooldown warnPlayer(CommandSender commandSender, long customTimeInSeconds){
+    public Cooldown warnPlayer(FCommandSender commandSender, long customTimeInSeconds){
         YOU_NEED_TO_WAIT_MORE_TIME
                 .addPlaceholder("%discursive_time%", getFCTimeFrame(customTimeInSeconds).getFormattedDiscursive("§6","§c"))
                 .send(commandSender);
         return this;
     }
 
-    public Cooldown warnPlayer(CommandSender commandSender, long customTime, TimeUnit timeUnit){
+    public Cooldown warnPlayer(FCommandSender commandSender, long customTime, TimeUnit timeUnit){
         YOU_NEED_TO_WAIT_MORE_TIME
                 .addPlaceholder("%discursive_time%", getFCTimeFrame(customTime, timeUnit).getFormattedDiscursive("§6","§c"))
                 .send(commandSender);

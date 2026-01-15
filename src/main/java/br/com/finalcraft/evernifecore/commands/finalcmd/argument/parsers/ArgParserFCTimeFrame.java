@@ -10,7 +10,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
 import br.com.finalcraft.evernifecore.util.FCTimeUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class ArgParserFCTimeFrame extends ArgParser<FCTimeFrame> {
     public static LocaleMessage THIS_IS_NOT_A_VALID_TIME_FRAME;
 
     @Override
-    public FCTimeFrame parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public FCTimeFrame parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
 
         Long millisConverted = FCTimeUtil.toMillis(argumento.toString());
 

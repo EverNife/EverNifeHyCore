@@ -1,5 +1,7 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.implementation;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFCommandSender;
 import br.com.finalcraft.evernifecore.commands.finalcmd.FinalCMDManager;
 import br.com.finalcraft.evernifecore.commands.finalcmd.accessvalidation.CMDAccessValidation;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.CMDHelpType;
@@ -17,7 +19,6 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import me.lucko.spark.hytale.HytaleCommandSender;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.jspecify.annotations.NonNull;
@@ -112,29 +113,6 @@ public class FinalCMDPluginCommand extends AbstractCommand {
         return this.owningPlugin.getCommandRegistry().registerCommand(this).isRegistered();
     }
 
-    public boolean testPermissionSilent(@Nonnull CommandSender target) {
-        if ((permission == null) || (permission.length() == 0)) {
-            return true;
-        }
-
-        for (String p : permission.split(";")) {
-            if (target.hasPermission(p)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean testPermission(@Nonnull CommandSender target) {
-        if (testPermissionSilent(target)) {
-            return true;
-        }
-
-        FCMessageUtil.needsThePermission(target, getPermission());
-        return false;
-    }
-
     @Override
     protected @org.jspecify.annotations.Nullable CompletableFuture<Void> execute(@NonNull CommandContext ctx) {
         throw new UnsupportedOperationException();
@@ -151,7 +129,7 @@ public class FinalCMDPluginCommand extends AbstractCommand {
         }
 
         try {
-            return executor.onCommand(sender, this, commandLabel, args);
+            return executor.onCommand(HytaleFCommandSender.of(sender), this, commandLabel, args);
         } catch (Throwable ex) {
             throw new RuntimeException("Unhandled exception executing command '" + commandLabel + "' in plugin " + owningPlugin.getName(), ex);
         }
@@ -185,7 +163,7 @@ public class FinalCMDPluginCommand extends AbstractCommand {
      *
      * @return a list of possible values
      */
-    public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
+    public List<String> tabComplete(FCommandSender sender, String alias, String[] args) {
 
         int index = args.length - 1;
 

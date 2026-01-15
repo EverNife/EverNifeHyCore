@@ -11,7 +11,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCTextUtil;
 import br.com.finalcraft.evernifecore.util.FCTimeUtil;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import jakarta.annotation.Nonnull;
@@ -168,18 +168,18 @@ public class PageViewer<OBJ, COMPARED_VALUE> {
         }
     }
 
-    public void send(@Nonnull CommandSender... sender){
+    public void send(@Nonnull FCommandSender... sender){
         send(1, sender);
     }
 
-    public void send(@Nullable Integer page, @Nonnull CommandSender... sender){
+    public void send(@Nullable Integer page, @Nonnull FCommandSender... sender){
         page = NumberWrapper.of(page == null ? 1 : page).boundLower(1).intValue();
         int start = NumberWrapper.of((page - 1) * pageSize).boundUpper(lineEnd - pageSize).intValue();
         int end = NumberWrapper.of(page * pageSize).boundUpper(lineEnd).intValue();
         send(page, start, end, sender);
     }
 
-    public void send(@Nullable PageVizualization pageVizualization, @Nonnull CommandSender... sender){
+    public void send(@Nullable PageVizualization pageVizualization, @Nonnull FCommandSender... sender){
         if (pageVizualization == null){
             send(1, sender);
             return;
@@ -199,7 +199,7 @@ public class PageViewer<OBJ, COMPARED_VALUE> {
         send(page, start, end, sender);
     }
 
-    public void send(int page, int lineStart, int lineEnd, CommandSender... sender){
+    public void send(int page, int lineStart, int lineEnd, FCommandSender... sender){
         validateCachedLines();
 
         //Bound lineEnd to lastLine
@@ -264,7 +264,7 @@ public class PageViewer<OBJ, COMPARED_VALUE> {
             }
         }
 
-        for (CommandSender commandSender : sender) {
+        for (FCommandSender commandSender : sender) {
             for (FancyText headerLine : pageHeaderCache) {
                 headerLine.send(commandSender);
             }

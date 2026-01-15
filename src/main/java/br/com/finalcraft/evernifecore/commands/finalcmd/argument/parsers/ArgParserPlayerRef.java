@@ -6,7 +6,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParser;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgParseException;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nonnull;
@@ -21,7 +21,7 @@ public class ArgParserPlayerRef extends ArgParser<PlayerRef> {
     }
 
     @Override
-    public PlayerRef parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public PlayerRef parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
         PlayerRef player = argumento.getPlayer();
 
         if (argInfo.isRequired() && player == null){

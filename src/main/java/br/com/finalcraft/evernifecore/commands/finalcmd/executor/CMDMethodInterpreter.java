@@ -32,7 +32,7 @@ import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCReflectionUtil;
 import br.com.finalcraft.evernifecore.util.commons.Tuple;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
@@ -281,7 +281,7 @@ public class CMDMethodInterpreter {
         return tabParsers.get(index);
     }
 
-    public void invoke(CommandSender sender, String label, MultiArgumentos argumentos, HelpContext helpContext, HelpLine helpLine) throws IllegalAccessException, IllegalArgumentException,
+    public void invoke(FCommandSender sender, String label, MultiArgumentos argumentos, HelpContext helpContext, HelpLine helpLine) throws IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
 
         helpContext.setLastLabel(label);
@@ -326,7 +326,7 @@ public class CMDMethodInterpreter {
             CMDParameterType parameterType = tuple.getLeft();
             Class parameterClass = tuple.getRight();
 
-            if (parameterType.getClazz() == CommandSender.class) { theArgs[index] = sender; continue; }
+            if (parameterType.getClazz() == FCommandSender.class) { theArgs[index] = sender; continue; }
             if (parameterType.getClazz() == Player.class) { theArgs[index] = sender; continue; }
             if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(((Player) sender).getPlayerRef().getUuid()); continue; }
             if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection((Player) sender, parameterClass); continue; }

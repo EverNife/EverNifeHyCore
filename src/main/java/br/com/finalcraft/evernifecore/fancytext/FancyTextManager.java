@@ -1,11 +1,9 @@
 package br.com.finalcraft.evernifecore.fancytext;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import br.com.finalcraft.evernifecore.util.FCAdventureUtil;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import net.kyori.adventure.text.Component;
 
 import java.util.Map;
@@ -13,48 +11,34 @@ import java.util.function.Function;
 
 public class FancyTextManager {
 
-    public static void send(FancyText fancyText, IMessageReceiver... commandSenders) {
+    public static void send(FancyText fancyText, FCommandSender... commandSenders) {
         if (fancyText.fancyFormatter != null) {
             send(fancyText.fancyFormatter, commandSenders);
             return;
         }
 
         Component component = fancyText.toComponent();
-        
-        for (IMessageReceiver sender : commandSenders) {
-            if (sender instanceof Player player) {
-                Message message = FCAdventureUtil.toHytaleMessage(component);
-                player.sendMessage(message);
-            } else {
-                sender.sendMessage(Message.raw(fancyText.text));
-            }
+
+        for (FCommandSender sender : commandSenders) {
+            sender.sendMessage(component);
         }
     }
 
-    public static void send(FancyFormatter fancyFormatter, IMessageReceiver... commandSenders) {
+    public static void send(FancyFormatter fancyFormatter, FCommandSender... commandSenders) {
         if (!fancyFormatter.hasPlaceholders()) {
             Component component = fancyFormatter.toComponent();
             
-            for (IMessageReceiver sender : commandSenders) {
-                if (sender instanceof Player player) {
-                    Message message = FCAdventureUtil.toHytaleMessage(component);
-                    player.sendMessage(message);
-                } else {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (FancyText aFancyText : fancyFormatter.getFancyTextList()) {
-                        stringBuilder.append(aFancyText.text);
-                    }
-                    sender.sendMessage(Message.raw(stringBuilder.toString()));
-                }
+            for (FCommandSender sender : commandSenders) {
+                sender.sendMessage(component);
             }
             return;
         }
 
         if (fancyFormatter.complexPlaceholder) {
-            for (IMessageReceiver sender : commandSenders) {
+            for (FCommandSender sender : commandSenders) {
                 FancyFormatter formatterClone = fancyFormatter.clone();
                 final boolean isPlayer = sender instanceof Player;
-                final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(((Player) sender).getPlayerRef().getUuid()) : null;
+                final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(sender.getUniqueId()) : null;
                 
                 for (Map.Entry<String, Object> entry : formatterClone.mapOfPlaceholders.entrySet()) {
                     String placeholder = entry.getKey();
@@ -67,18 +51,8 @@ public class FancyTextManager {
                     formatterClone.replace(placeholder, value);
                 }
 
-                if (isPlayer) {
-                    Player player = (Player) sender;
-                    Component component = formatterClone.toComponent();
-                    Message message = FCAdventureUtil.toHytaleMessage(component);
-                    player.sendMessage(message);
-                } else {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (FancyText aFancyText : formatterClone.getFancyTextList()) {
-                        stringBuilder.append(aFancyText.text);
-                    }
-                    sender.sendMessage(Message.raw(stringBuilder.toString()));
-                }
+                Component component = formatterClone.toComponent();
+                sender.sendMessage(component);
             }
             return;
         }
@@ -92,17 +66,8 @@ public class FancyTextManager {
 
         Component component = formatterClone.toComponent();
         
-        for (IMessageReceiver sender : commandSenders) {
-            if (sender instanceof Player player) {
-                Message message = FCAdventureUtil.toHytaleMessage(component);
-                player.sendMessage(message);
-            } else {
-                StringBuilder stringBuilder = new StringBuilder();
-                for (FancyText aFancyText : formatterClone.getFancyTextList()) {
-                    stringBuilder.append(aFancyText.text);
-                }
-                sender.sendMessage(Message.raw(stringBuilder.toString()));
-            }
+        for (FCommandSender sender : commandSenders) {
+            sender.sendMessage(component);
         }
     }
 }

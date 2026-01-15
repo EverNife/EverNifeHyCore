@@ -1,6 +1,6 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.tab;
 
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -12,12 +12,12 @@ public interface ITabParser {
     public abstract @Nonnull List<String> tabComplete(TabContext tabContext);
 
     public static class TabContext {
-        private final CommandSender sender;
+        private final FCommandSender sender;
         private final String alias;
         private final String[] args;
         private final int index;
 
-        public TabContext(CommandSender sender, String alias, String[] args, int index) {
+        public TabContext(FCommandSender sender, String alias, String[] args, int index) {
             this.sender = sender;
             this.alias = alias;
             this.args = args;
@@ -32,7 +32,7 @@ public interface ITabParser {
             return sender instanceof Player ? (Player) sender : null;
         }
 
-        public @Nonnull CommandSender getSender() {
+        public @Nonnull FCommandSender getSender() {
             return sender;
         }
 

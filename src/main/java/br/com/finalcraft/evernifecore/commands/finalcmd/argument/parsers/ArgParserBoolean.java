@@ -7,7 +7,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgPa
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.util.ArgsParserUtil;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class ArgParserBoolean extends ArgParser<Boolean> {
     }
 
     @Override
-    public Boolean parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public Boolean parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
 
         Boolean bool = argumento.getBoolean();
 

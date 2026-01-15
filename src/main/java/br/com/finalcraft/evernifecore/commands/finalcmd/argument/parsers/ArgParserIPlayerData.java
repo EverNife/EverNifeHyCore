@@ -12,7 +12,7 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nonnull;
 
@@ -36,7 +36,7 @@ public class ArgParserIPlayerData extends ArgParser<IPlayerData> {
     }
 
     @Override
-    public IPlayerData parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public IPlayerData parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
         PlayerData playerData = argumento.getPlayerData();
 
         if (playerData == null){

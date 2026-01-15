@@ -10,7 +10,7 @@ import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.pageviwer.PageViewer;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class CoreCommand {
             },
             permission = PermissionNodes.EVERNIFECORE_COMMAND_INFO
     )
-    public void info(CommandSender sender, @Arg(name = "[page]", context = "[1:*]") Integer page){
+    public void info(FCommandSender sender, @Arg(name = "[page]", context = "[1:*]") Integer page){
         PageViewer.targeting(ECPluginData.class)
                 .withSuplier(() -> new ArrayList<>(ECPluginManager.getECPluginsMap().values()))
                 .extracting(ecPluginData -> ecPluginData.getPlugin().getName())
@@ -59,7 +59,7 @@ public class CoreCommand {
             },
             permission = PermissionNodes.EVERNIFECORE_COMMAND_RELOAD
     )
-    public void reload(CommandSender sender){
+    public void reload(FCommandSender sender){
         ECPluginManager.reloadPlugin(sender, EverNifeCore.instance);
     }
 

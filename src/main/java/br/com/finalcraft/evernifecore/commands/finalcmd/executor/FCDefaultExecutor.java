@@ -11,7 +11,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleMessageImp;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import com.hypixel.hytale.server.core.command.system.AbstractCommand;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import jakarta.annotation.Nonnull;
 
@@ -34,7 +34,7 @@ public class FCDefaultExecutor {
         this.finalCMD = finalCommand.finalCMD;
     }
 
-    public CompletableFuture<Void> onCommand(CommandSender sender, AbstractCommand command, String label, String[] args) {
+    public CompletableFuture<Void> onCommand(FCommandSender sender, AbstractCommand command, String label, String[] args) {
 
         if ((finalCommand.mainInterpreter != null && finalCommand.mainInterpreter.isPlayerOnly()) && FCHytaleUtil.isNotPlayer(sender)){
             return CompletableFuture.completedFuture(null);
@@ -113,7 +113,7 @@ public class FCDefaultExecutor {
         return CompletableFuture.completedFuture(null);
     }
 
-    private void prepareClassLocales(CommandSender sender, String label) throws IllegalAccessException {
+    private void prepareClassLocales(FCommandSender sender, String label) throws IllegalAccessException {
         for (Field localeMessageField : this.finalCommand.localeMessageFields) {
             LocaleMessageImp localeMessage = (LocaleMessageImp) localeMessageField.get(null);
             localeMessage.getContextPlaceholders().clear();

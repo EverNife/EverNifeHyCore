@@ -1,7 +1,7 @@
 package br.com.finalcraft.evernifecore.dynamiccommand;
 
 import br.com.finalcraft.evernifecore.cooldown.Cooldown;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import org.apache.commons.lang3.Validate;
 
 import java.util.UUID;
@@ -36,7 +36,7 @@ public class DynamicCommand {
         return identifier;
     }
 
-    public void runAction(CommandSender sender) {
+    public void runAction(FCommandSender sender) {
         action.accept(new DynamicCommand.Context(sender, this));
     }
 
@@ -44,11 +44,11 @@ public class DynamicCommand {
         return cooldown;
     }
 
-    public boolean shouldRemove(CommandSender sender) {
+    public boolean shouldRemove(FCommandSender sender) {
         return shouldRemove.apply(new DynamicCommand.Context(sender, this));
     }
 
-    public boolean shouldRun(CommandSender sender) {
+    public boolean shouldRun(FCommandSender sender) {
         return shouldRun.apply(new DynamicCommand.Context(sender, this));
     }
 
@@ -133,15 +133,15 @@ public class DynamicCommand {
     }
 
     public static class Context{
-        private CommandSender sender;
+        private FCommandSender sender;
         private DynamicCommand dynamicCommand;
 
-        protected Context(CommandSender sender, DynamicCommand dynamicCommand) {
+        protected Context(FCommandSender sender, DynamicCommand dynamicCommand) {
             this.sender = sender;
             this.dynamicCommand = dynamicCommand;
         }
 
-        public CommandSender getSender() {
+        public FCommandSender getSender() {
             return sender;
         }
 

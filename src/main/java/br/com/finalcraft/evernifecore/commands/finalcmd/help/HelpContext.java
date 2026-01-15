@@ -8,8 +8,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import com.google.common.collect.ImmutableList;
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 
 import java.util.ArrayList;
@@ -55,11 +54,11 @@ public class HelpContext {
         this.lastLabel = lastLabel;
     }
 
-    public void sendTo(CommandSender sender){
+    public void sendTo(FCommandSender sender){
         sendTo(sender, this.lastLabel);
     }
 
-    public void sendTo(CommandSender sender, String label){
+    public void sendTo(FCommandSender sender, String label){
 
         List<Runnable> helpLinesToSend = new ArrayList<>();
 
@@ -93,12 +92,12 @@ public class HelpContext {
             return;
         }
 
-        sender.sendMessage(Message.raw(helpHeader.isEmpty() ? "§2§m-----------------------------------------------------" : helpHeader));
+        sender.sendMessage(helpHeader.isEmpty() ? "§2§m-----------------------------------------------------" : helpHeader);
         for (Runnable helpLine : helpLinesToSend) {
             helpLine.run();//send each line
         }
-        sender.sendMessage(Message.empty());
+        sender.sendMessage("");
         HOLD_MOUSE_OVER.send(sender);
-        sender.sendMessage(Message.raw("§2§m-----------------------------------------------------"));
+        sender.sendMessage("§2§m-----------------------------------------------------");
     }
 }

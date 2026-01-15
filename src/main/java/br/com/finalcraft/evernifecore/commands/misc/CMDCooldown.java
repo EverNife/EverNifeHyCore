@@ -11,7 +11,7 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 @FinalCMD(
         aliases = {"cooldown", "cooldowns"},
@@ -35,7 +35,7 @@ public class CMDCooldown {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Reseta um cooldown especifico!")
             }
     )
-    public void reset(CommandSender sender, MultiArgumentos argumentos, HelpLine helpLine) {
+    public void reset(FCommandSender sender, MultiArgumentos argumentos, HelpLine helpLine) {
 
         if (argumentos.emptyArgs(1)){
             helpLine.sendTo(sender);
@@ -60,7 +60,7 @@ public class CMDCooldown {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Reseta um cooldown especifico de um jogador!")
             }
     )
-    public void resetPlayer(CommandSender sender, MultiArgumentos argumentos, HelpLine helpLine) {
+    public void resetPlayer(FCommandSender sender, MultiArgumentos argumentos, HelpLine helpLine) {
 
         if (argumentos.emptyArgs(1,2)){
             helpLine.sendTo(sender);
@@ -98,7 +98,7 @@ public class CMDCooldown {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Recarrega todos os cooldowns genéricos (NonPlayer)!")
             }
     )
-    public void reload(CommandSender sender) {
+    public void reload(FCommandSender sender) {
         ConfigManager.reloadCooldownConfig();
         COOLDOWN_RELOAD.send(sender);
     }

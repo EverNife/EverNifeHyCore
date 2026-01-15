@@ -2,7 +2,7 @@ package br.com.finalcraft.evernifecore.ecplugin;
 
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
@@ -24,7 +24,7 @@ public class ECPluginManager {
         return EVERNIFECORE_PLUGINS_MAP.computeIfAbsent(plugin.getName(), pluginName -> new ECPluginData(plugin));
     }
 
-    public static void reloadPlugin(@Nullable CommandSender sender, @Nonnull JavaPlugin instance) {
+    public static void reloadPlugin(@Nullable FCommandSender sender, @Nonnull JavaPlugin instance) {
         ECPluginData ecPluginData = getOrCreateECorePluginData(instance);
         if (!ecPluginData.canReload()){
             throw new IllegalStateException(String.format(
@@ -36,11 +36,11 @@ public class ECPluginManager {
         reloadPlugin(sender, instance, ecPluginData, () -> ecPluginData.reloadPlugin());
     }
 
-    public static void reloadPlugin(@Nullable CommandSender sender, @Nonnull JavaPlugin instance, @Nonnull Runnable runnable){
+    public static void reloadPlugin(@Nullable FCommandSender sender, @Nonnull JavaPlugin instance, @Nonnull Runnable runnable){
         reloadPlugin(sender, instance, getOrCreateECorePluginData(instance), runnable);
     }
 
-    public static void reloadPlugin(@Nullable CommandSender sender, @Nonnull JavaPlugin instance, ECPluginData ecPluginData, @Nonnull Runnable runnable){
+    public static void reloadPlugin(@Nullable FCommandSender sender, @Nonnull JavaPlugin instance, ECPluginData ecPluginData, @Nonnull Runnable runnable){
         //Fire Pre-Reload
         //Mainly used for Plugins that has other addons or modules
         long start = System.currentTimeMillis();

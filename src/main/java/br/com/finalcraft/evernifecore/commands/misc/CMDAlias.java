@@ -4,7 +4,7 @@ import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.commands.finalcmd.custom.ICustomFinalCMD;
 import br.com.finalcraft.evernifecore.commands.finalcmd.custom.contexts.CustomizeContext;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 public class CMDAlias implements ICustomFinalCMD {
@@ -26,7 +26,7 @@ public class CMDAlias implements ICustomFinalCMD {
             aliases = "",
             desc = "Alias for the command: [%the_command%]"
     )
-    public void onAliasExecution(CommandSender sender, MultiArgumentos argumentos) {
+    public void onAliasExecution(FCommandSender sender, MultiArgumentos argumentos) {
 //        FCHytaleUtil.makePlayerExecuteCommand(sender,
 //                theCommand + " " + String.join(" ", argumentos.getStringArgs())
 //        );

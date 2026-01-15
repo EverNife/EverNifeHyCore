@@ -14,8 +14,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCCommandUtil;
 import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCTextUtil;
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import java.util.Comparator;
@@ -35,7 +34,7 @@ public class CMDECLocale {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Mostra as Locales de todos os plugins.")
             }
     )
-    public void list(CommandSender sender, String label) {
+    public void list(FCommandSender sender, String label) {
         FancyFormatter formatter = FancyFormatter.of(FCTextUtil.straightLineOf("§a§m-§r"));
 
         List<ECPluginData> sortedPlugins = ECPluginManager.getECPluginsMap().values().stream()
@@ -75,7 +74,7 @@ public class CMDECLocale {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Define uma Locale para um plugin específico.")
             }
     )
-    public void set(CommandSender sender, String label, MultiArgumentos argumentos, HelpLine helpLine) {
+    public void set(FCommandSender sender, String label, MultiArgumentos argumentos, HelpLine helpLine) {
 
         if (argumentos.emptyArgs(1,2)){
             helpLine.sendTo(sender);
@@ -87,7 +86,7 @@ public class CMDECLocale {
         ECPluginData ecPluginData = plugin == null ? null : ECPluginManager.getECPluginsMap().get(plugin.getName());
 
         if (ecPluginData == null){
-            sender.sendMessage(Message.raw("§e§l ▶ §cThere is no ECPlugin with the name §e[" + argumentos.get(1) + "]§c found on this server."));
+            sender.sendMessage("§e§l ▶ §cThere is no ECPlugin with the name §e[" + argumentos.get(1) + "]§c found on this server.");
             return;
         }
 
@@ -110,7 +109,7 @@ public class CMDECLocale {
             ecPluginData.reloadAllCustomLocales();
         }
 
-        sender.sendMessage(Message.raw("§2§l ▶ §b§l" + plugin.getName() + "'s §alocalization file name set to [" + localization_config.getString("Localization.fileName") + "]!"));
+        sender.sendMessage("§2§l ▶ §b§l" + plugin.getName() + "'s §alocalization file name set to [" + localization_config.getString("Localization.fileName") + "]!");
     }
 
     @FinalCMD.SubCMD(
@@ -121,7 +120,7 @@ public class CMDECLocale {
                     @FCLocale(lang = LocaleType.PT_BR, text = "Define a Locale de todos os ECPlugin para uma específica.")
             }
     )
-    public void setall(CommandSender sender, String label, MultiArgumentos argumentos, HelpLine helpLine) {
+    public void setall(FCommandSender sender, String label, MultiArgumentos argumentos, HelpLine helpLine) {
 
         if (argumentos.emptyArgs(1)){
             helpLine.sendTo(sender);

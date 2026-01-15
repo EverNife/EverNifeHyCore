@@ -1,10 +1,10 @@
 package br.com.finalcraft.evernifecore.fancytext;
 
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFCommandSender;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.console.ConsoleSender;
-import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nullable;
 import net.kyori.adventure.text.Component;
@@ -13,8 +13,10 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FancyText {
 
@@ -196,15 +198,18 @@ public class FancyText {
         return cachedComponent;
     }
 
-    public void send(IMessageReceiver... commandSender) {
+    public void send(FCommandSender... commandSender) {
         FancyTextManager.send(this, commandSender);
     }
 
     public void broadcast() {
-        IMessageReceiver[] senders = ArrayUtils.addAll(
-                new CommandSender[]{ConsoleSender.INSTANCE},
-                Universe.get().getPlayers().toArray(new IMessageReceiver[0])
-        );
+        FCommandSender[] senders = Arrays.stream(ArrayUtils.addAll(
+                        new com.hypixel.hytale.server.core.command.system.CommandSender[]{ConsoleSender.INSTANCE},
+                        Universe.get().getPlayers().toArray(new com.hypixel.hytale.server.core.command.system.CommandSender[0])
+                )).map(HytaleFCommandSender::of)
+                .collect(Collectors.toList())
+                .toArray(new FCommandSender[0]);
+
         send(senders);
     }
 

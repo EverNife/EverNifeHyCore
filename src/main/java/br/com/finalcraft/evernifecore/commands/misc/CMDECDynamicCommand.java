@@ -8,7 +8,7 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 import java.util.UUID;
 
@@ -25,7 +25,7 @@ public class CMDECDynamicCommand {
     @FinalCMD(
             aliases = {"ecdcmd"}
     )
-    public void onCommand(CommandSender sender, MultiArgumentos argumentos) {
+    public void onCommand(FCommandSender sender, MultiArgumentos argumentos) {
 
         UUID cmdIdentifier = argumentos.get(0).getUUID();
         if (cmdIdentifier == null){

@@ -4,7 +4,7 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.console.ConsoleSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
@@ -23,7 +23,7 @@ public class FCHytaleUtil {
      * @param sender The CommandSender.
      * @return if the sender is a player.
      */
-    public static boolean isNotPlayer(CommandSender sender) {
+    public static boolean isNotPlayer(FCommandSender sender) {
         if (!(sender instanceof Player)) {
             ONLY_PLAYERS_CAN_USE_THIS_COMMAND
                     .send(sender);
@@ -39,7 +39,7 @@ public class FCHytaleUtil {
      * @param permission The permission you want to check.
      * @return A boolean value.
      */
-    public static boolean hasThePermission(CommandSender player, String permission) {
+    public static boolean hasThePermission(FCommandSender player, String permission) {
 
         if (!player.hasPermission(permission)) {
             FCMessageUtil.needsThePermission(player, permission);
@@ -67,8 +67,9 @@ public class FCHytaleUtil {
     /**
      * Força o jogador a executar um comando!
      */
-    public static void makePlayerExecuteCommand(CommandSender player, String theCommand) {
-        CommandManager.get().handleCommand(player, theCommand);
+    public static void makePlayerExecuteCommand(FCommandSender player, String theCommand) {
+        com.hypixel.hytale.server.core.command.system.CommandSender delegate = player.getDelegate(com.hypixel.hytale.server.core.command.system.CommandSender.class);
+        CommandManager.get().handleCommand(delegate, theCommand);
     }
 
     public static ItemStack getPlayersHeldItem(Player player) {

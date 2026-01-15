@@ -5,14 +5,14 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.help.HelpContext;
 import br.com.finalcraft.evernifecore.commands.finalcmd.help.HelpLine;
 import br.com.finalcraft.evernifecore.config.playerdata.PDSection;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 
 public class CMDParameterType<T> {
 
     public static final CMDParameterType[] ALLOWED_CLASSES = new CMDParameterType[]{
-            CMDParameterType.of(CommandSender.class).build(),
+            CMDParameterType.of(FCommandSender.class).build(),
             CMDParameterType.of(String.class).build(),
             CMDParameterType.of(MultiArgumentos.class).build(),
             CMDParameterType.of(HelpContext.class).build(),

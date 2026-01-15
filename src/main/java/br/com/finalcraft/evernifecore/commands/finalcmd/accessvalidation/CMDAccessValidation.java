@@ -5,7 +5,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.executor.CMDMethodInterp
 import br.com.finalcraft.evernifecore.config.playerdata.PDSection;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 
 /**
@@ -41,9 +41,9 @@ public abstract class CMDAccessValidation {
     public static class AccessContext {
 
         private final CMDMethodInterpreter interpreter;
-        private final CommandSender sender;
+        private final FCommandSender sender;
 
-        public AccessContext(CMDMethodInterpreter interpreter, CommandSender sender) {
+        public AccessContext(CMDMethodInterpreter interpreter, FCommandSender sender) {
             this.interpreter = interpreter;
             this.sender = sender;
         }
@@ -52,7 +52,7 @@ public abstract class CMDAccessValidation {
             return interpreter;
         }
 
-        public CommandSender getSender() {
+        public FCommandSender getSender() {
             return sender;
         }
 

@@ -2,7 +2,7 @@ package br.com.finalcraft.evernifecore.commands.finalcmd.help;
 
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleMessageImp;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -26,7 +26,7 @@ public class HelpLine {
         return permission;
     }
 
-    public void sendTo(CommandSender sender){
+    public void sendTo(FCommandSender sender){
         this.localeMessage
                 .addPlaceholder("%label%", label)
                 .addPlaceholder("%subcmd%", subCMDLabel)

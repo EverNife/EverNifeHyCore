@@ -8,7 +8,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.util.Ar
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
 import com.google.common.collect.ImmutableList;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class ArgParserArgumento extends ArgParser<Argumento> {
     }
 
     @Override
-    public Argumento parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public Argumento parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
 
         if (argInfo.isRequired() && argumento.isEmpty()){
             FCMessageUtil.notWithinPossibilities(sender, argumento.toString(), possibilities);

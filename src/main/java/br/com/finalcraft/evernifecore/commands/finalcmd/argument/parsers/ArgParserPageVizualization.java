@@ -7,7 +7,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParser;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgParseException;
 import br.com.finalcraft.evernifecore.pageviwer.PageVizualization;
 import com.google.common.collect.ImmutableList;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class ArgParserPageVizualization extends ArgParser<PageVizualization> {
     }
 
     @Override
-    public PageVizualization parserArgument(@Nonnull CommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
+    public PageVizualization parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
 
         if (argumento.equalsIgnoreCase("all") && sender.hasPermission(PermissionNodes.EVERNIFECORE_PAGEVIEWER_ALL)){
             return new PageVizualization(0, 0, true);

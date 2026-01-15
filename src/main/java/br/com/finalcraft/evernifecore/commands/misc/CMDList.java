@@ -5,7 +5,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.pageviwer.PageViewer;
 import br.com.finalcraft.evernifecore.pageviwer.PageVizualization;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 
@@ -16,7 +16,7 @@ public class CMDList {
     @FinalCMD(
             aliases = {"list","playerlist"}
     )
-    public void onCommand(CommandSender sender, @Arg(name = "[page]") PageVizualization page) {
+    public void onCommand(FCommandSender sender, @Arg(name = "[page]") PageVizualization page) {
         PageViewer.targeting(PlayerRef.class)
                 .withSuplier(() -> new ArrayList<>(Universe.get().getPlayers()))
                 .extracting(plaeyrRef -> plaeyrRef.getUsername())
