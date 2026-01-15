@@ -119,16 +119,6 @@ publishing {
             from(components.java)
             pom.withXml {
                 asNode().appendNode('url','https://petrus.dev')
-
-                asNode().dependencies.'*'.each() {
-                    it.parent().remove(it) //Remove all dependencies from pom file
-                }
-                /* this does not work, sad :D
-                def repositoriesNode = asNode().appendNode('repositories')
-                def repositoryNode = repositoriesNode.appendNode('repository')
-                repositoryNode.appendNode('id', 'jitpack.io')
-                repositoryNode.appendNode('url', 'https://jitpack.io')
-                 */
             }
         }
     }

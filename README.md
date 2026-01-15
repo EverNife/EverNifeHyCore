@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'br.com.finalcraft:EverNifeHyCore:2.0.4'
+    compileOnly 'br.com.finalcraft:EverNifeHyCore:2.0.5'
 }
 ```
 
