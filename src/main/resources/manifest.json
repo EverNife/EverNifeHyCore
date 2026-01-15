@@ -1,0 +1,20 @@
+{
+  "Group": "${author}",
+  "Name": "${name}",
+  "Version": "${version}",
+  "Description": "${mod_description}",
+  "Authors": [
+    {
+      "Name": "${author}"
+    }
+  ],
+  "Website": "${website}",
+  "ServerVersion": "*",
+  "Dependencies": {
+    "Hytale:EntityModule": "*"
+  },
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "${entry_point}",
+  "IncludesAssetPack": true
+}
