@@ -4,13 +4,14 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
 import com.hypixel.hytale.server.core.command.system.CommandSender;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.function.Function;
 
 public interface ILocaleMessageBase {
 
-    public void send(CommandSender... commandSenders);
+    public void send(IMessageReceiver... commandSenders);
 
     public void broadcast();
 
@@ -32,6 +33,6 @@ public interface ILocaleMessageBase {
 
     public SendCustom concat(SendCustom sendCustom);
 
-    public FancyText getFancyText(CommandSender sender);
+    public FancyText getFancyText(IMessageReceiver sender);
 
 }

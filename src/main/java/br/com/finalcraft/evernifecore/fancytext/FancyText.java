@@ -4,6 +4,7 @@ import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
 import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.console.ConsoleSender;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nullable;
 import net.kyori.adventure.text.Component;
@@ -195,14 +196,14 @@ public class FancyText {
         return cachedComponent;
     }
 
-    public void send(CommandSender... commandSender) {
+    public void send(IMessageReceiver... commandSender) {
         FancyTextManager.send(this, commandSender);
     }
 
     public void broadcast() {
-        CommandSender[] senders = ArrayUtils.addAll(
+        IMessageReceiver[] senders = ArrayUtils.addAll(
                 new CommandSender[]{ConsoleSender.INSTANCE},
-                Universe.get().getPlayers().toArray(new CommandSender[0])
+                Universe.get().getPlayers().toArray(new IMessageReceiver[0])
         );
         send(senders);
     }

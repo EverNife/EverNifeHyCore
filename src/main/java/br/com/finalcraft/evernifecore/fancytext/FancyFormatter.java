@@ -2,7 +2,7 @@ package br.com.finalcraft.evernifecore.fancytext;
 
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 
@@ -169,7 +169,7 @@ public class FancyFormatter extends FancyText {
     }
 
     @Override
-    public void send(CommandSender... commandSenders) {
+    public void send(IMessageReceiver... commandSenders) {
         FancyTextManager.send(this, commandSenders);
     }
 

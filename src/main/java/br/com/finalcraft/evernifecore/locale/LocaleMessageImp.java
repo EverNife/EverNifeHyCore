@@ -3,8 +3,8 @@ package br.com.finalcraft.evernifecore.locale;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class LocaleMessageImp implements LocaleMessage {
     }
 
     @Override
-    public void send(CommandSender... commandSenders){
+    public void send(IMessageReceiver... commandSenders){
         custom().send(commandSenders);//Use a custom to replace CONTEXT placeholders!
     }
 
@@ -103,7 +103,7 @@ public class LocaleMessageImp implements LocaleMessage {
     }
 
     @Override
-    public FancyText getFancyText(CommandSender sender){
+    public FancyText getFancyText(IMessageReceiver sender){
         return getDefaultFancyText();
         //TODO Create a PER_PLAYER locale
         //return fancyTextMap.get(FCLocaleManager.getLangOf(sender));

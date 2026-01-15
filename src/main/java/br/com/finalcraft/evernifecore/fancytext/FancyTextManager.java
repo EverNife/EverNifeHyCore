@@ -4,8 +4,8 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.util.FCAdventureUtil;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import net.kyori.adventure.text.Component;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class FancyTextManager {
 
-    public static void send(FancyText fancyText, CommandSender... commandSenders) {
+    public static void send(FancyText fancyText, IMessageReceiver... commandSenders) {
         if (fancyText.fancyFormatter != null) {
             send(fancyText.fancyFormatter, commandSenders);
             return;
@@ -21,7 +21,7 @@ public class FancyTextManager {
 
         Component component = fancyText.toComponent();
         
-        for (CommandSender sender : commandSenders) {
+        for (IMessageReceiver sender : commandSenders) {
             if (sender instanceof Player player) {
                 Message message = FCAdventureUtil.toHytaleMessage(component);
                 player.sendMessage(message);
@@ -31,11 +31,11 @@ public class FancyTextManager {
         }
     }
 
-    public static void send(FancyFormatter fancyFormatter, CommandSender... commandSenders) {
+    public static void send(FancyFormatter fancyFormatter, IMessageReceiver... commandSenders) {
         if (!fancyFormatter.hasPlaceholders()) {
             Component component = fancyFormatter.toComponent();
             
-            for (CommandSender sender : commandSenders) {
+            for (IMessageReceiver sender : commandSenders) {
                 if (sender instanceof Player player) {
                     Message message = FCAdventureUtil.toHytaleMessage(component);
                     player.sendMessage(message);
@@ -51,7 +51,7 @@ public class FancyTextManager {
         }
 
         if (fancyFormatter.complexPlaceholder) {
-            for (CommandSender sender : commandSenders) {
+            for (IMessageReceiver sender : commandSenders) {
                 FancyFormatter formatterClone = fancyFormatter.clone();
                 final boolean isPlayer = sender instanceof Player;
                 final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(((Player) sender).getPlayerRef().getUuid()) : null;
@@ -92,7 +92,7 @@ public class FancyTextManager {
 
         Component component = formatterClone.toComponent();
         
-        for (CommandSender sender : commandSenders) {
+        for (IMessageReceiver sender : commandSenders) {
             if (sender instanceof Player player) {
                 Message message = FCAdventureUtil.toHytaleMessage(component);
                 player.sendMessage(message);

@@ -4,8 +4,8 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nullable;
 
@@ -83,8 +83,8 @@ public class SendCustom implements ILocaleMessageBase {
     }
 
     @Override
-    public void send(CommandSender... commandSenders) {
-        for (CommandSender sender : commandSenders) {
+    public void send(IMessageReceiver... commandSenders) {
+        for (IMessageReceiver sender : commandSenders) {
             FancyText fancyText = getFancyText(sender);
             fancyText.send(sender);
         }
@@ -92,11 +92,11 @@ public class SendCustom implements ILocaleMessageBase {
 
     @Override
     public void broadcast(){
-        send(Universe.get().getPlayers().toArray(new CommandSender[0]));
+        send(Universe.get().getPlayers().toArray(new IMessageReceiver[0]));
     }
 
     @Override
-    public FancyText getFancyText(@Nullable CommandSender sender){
+    public FancyText getFancyText(@Nullable IMessageReceiver sender){
         FancyText fancyText = sender == null ? localeMessage.getDefaultFancyText().clone() : localeMessage.getFancyText(sender).clone();
         if (hover != null) fancyText.setHoverText(hover);
         if (action != null) fancyText.setRunCommandAction(action);

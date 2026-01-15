@@ -4,8 +4,8 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyFormatter;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
-import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.receiver.IMessageReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +42,8 @@ public class SendCustomComplex extends SendCustom {
     }
 
     @Override
-    public void send(CommandSender... commandSenders){
-        for (CommandSender sender : commandSenders) {
+    public void send(IMessageReceiver... commandSenders){
+        for (IMessageReceiver sender : commandSenders) {
 
             FancyFormatter formatter = new FancyFormatter();
             for (SendCustom sendCustom : concatList) {
