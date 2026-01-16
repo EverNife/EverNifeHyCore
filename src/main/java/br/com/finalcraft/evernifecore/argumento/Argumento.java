@@ -67,13 +67,22 @@ public class Argumento {
             return null;
         }
 
-        PlayerRef player = Universe.get().getPlayer(argumento, NameMatching.EXACT_IGNORE_CASE);
+        PlayerRef playerRef = null;
 
-        if (player == null){
+        for(World world : Universe.get().getWorlds().values()) {
+
+            playerRef = NameMatching.EXACT_IGNORE_CASE.find(world.getPlayerRefs(), argumento, PlayerRef::getUsername);
+
+            if (playerRef != null) {
+                break;
+            }
+        }
+
+        if (playerRef == null){
             return null;
         }
 
-        return FCHytaleUtil.wrap(player);
+        return FCHytaleUtil.wrap(playerRef);
     }
 
     public PlayerData getPlayerData(){
