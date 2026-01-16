@@ -8,6 +8,7 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.context
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.context.ArgContextResult;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
+import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
@@ -59,7 +60,10 @@ public class ArgParserUUID extends ArgParser<UUID> {
     @Override
     public @Nonnull List<String> tabComplete(TabContext tabContext) {
         Collection<PlayerData> playerDataList = online
-                ? Universe.get().getPlayers().stream().map(PlayerController::getPlayerData).collect(Collectors.toList())
+                ? Universe.get().getPlayers().stream()
+                .map(FCHytaleUtil::wrap)
+                .map(PlayerController::getPlayerData)
+                .collect(Collectors.toList())
                 : PlayerController.getAllPlayerData();
 
 

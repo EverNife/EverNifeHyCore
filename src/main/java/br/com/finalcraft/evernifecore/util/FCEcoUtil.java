@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.util;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.playerdata.IPlayerData;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
@@ -19,9 +20,9 @@ public class FCEcoUtil {
         return EconomyManager.getProvider().ecoGet(playerData.getPlayerData());
     }
 
-    public static double ecoGet(PlayerRef player) {
+    public static double ecoGet(FPlayer player) {
         PlayerData playerData = PlayerController.getPlayerData(player);
-        Objects.requireNonNull(playerData, player.getUsername() + " does not exist on EverNifeCore's Database!");
+        Objects.requireNonNull(playerData, player.getName() + " does not exist on EverNifeCore's Database!");
         return ecoGet(playerData);
     }
 
@@ -35,9 +36,9 @@ public class FCEcoUtil {
         EconomyManager.getProvider().ecoGive(playerData.getPlayerData(), value);
     }
 
-    public static void ecoGive(PlayerRef player, double value) {
+    public static void ecoGive(FPlayer player, double value) {
         PlayerData playerData = PlayerController.getPlayerData(player);
-        Objects.requireNonNull(playerData, player.getUsername() + " does not exist on EverNifeCore's Database!");
+        Objects.requireNonNull(playerData, player.getName() + " does not exist on EverNifeCore's Database!");
         ecoGive(playerData, value);
     }
 
@@ -52,9 +53,9 @@ public class FCEcoUtil {
         return EconomyManager.getProvider().ecoTake(playerData.getPlayerData(), value);
     }
 
-    public static boolean ecoTake(PlayerRef player, double value) {
+    public static boolean ecoTake(FPlayer player, double value) {
         PlayerData playerData = PlayerController.getPlayerData(player);
-        Objects.requireNonNull(playerData, player.getUsername() + " does not exist on EverNifeCore's Database!");
+        Objects.requireNonNull(playerData, player.getName() + " does not exist on EverNifeCore's Database!");
         return ecoTake(playerData, value);
     }
 
@@ -68,9 +69,9 @@ public class FCEcoUtil {
         EconomyManager.getProvider().ecoSet(playerData.getPlayerData(), value);
     }
 
-    public static void ecoSet(PlayerRef player, double value) {
+    public static void ecoSet(FPlayer player, double value) {
         PlayerData playerData = PlayerController.getPlayerData(player);
-        Objects.requireNonNull(playerData, player.getUsername() + " does not exist on EverNifeCore's Database!");
+        Objects.requireNonNull(playerData, player.getName() + " does not exist on EverNifeCore's Database!");
         ecoSet(playerData, value);
     }
 
@@ -85,9 +86,9 @@ public class FCEcoUtil {
         return ecoGet(playerData) >= value;
     }
 
-    public static boolean ecoHasEnough(PlayerRef player, double value) {
+    public static boolean ecoHasEnough(FPlayer player, double value) {
         PlayerData playerData = PlayerController.getPlayerData(player);
-        Objects.requireNonNull(playerData, player.getUsername() + " does not exist on EverNifeCore's Database!");
+        Objects.requireNonNull(playerData, player.getName() + " does not exist on EverNifeCore's Database!");
         return ecoHasEnough(playerData, value);
     }
 

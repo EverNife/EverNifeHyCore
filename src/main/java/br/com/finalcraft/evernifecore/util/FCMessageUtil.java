@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.util;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
@@ -162,13 +163,13 @@ public class FCMessageUtil {
     @FCLocale(lang = LocaleType.EN_US, text = "§e§l ▶ §cYou do not have enough money! §7§o(Money: %current_money%§l/§7§o%needed_money%)")
     @FCLocale(lang = LocaleType.PT_BR, text = "§e§l ▶ §cVocê não tem money suficiente! §7§o(Money: %current_money%§l/§7§o%needed_money%)")
     private static LocaleMessage ECO_NOT_ENOUGHT;
-    public static void ecoNotEnough(PlayerRef sender, double amountNeeded){
+    public static void ecoNotEnough(FPlayer sender, double amountNeeded){
         NumberWrapper<Double> currentMoney = NumberWrapper.of(FCEcoUtil.ecoGet(sender));
         NumberWrapper<Double> neededMoney = NumberWrapper.of(amountNeeded);
-//        ECO_NOT_ENOUGHT
-//                .addPlaceholder("%current_money%", currentMoney)
-//                .addPlaceholder("%needed_money%", neededMoney)
-//                .send(sender);
+        ECO_NOT_ENOUGHT
+                .addPlaceholder("%current_money%", currentMoney)
+                .addPlaceholder("%needed_money%", neededMoney)
+                .send(sender);
     }
 
     @FCLocale(lang = LocaleType.EN_US, text = "§e§l ▶ §cThe inserted value §e(%number%)§c must be between §6[%min%] §cand §6[%max%]§c!")

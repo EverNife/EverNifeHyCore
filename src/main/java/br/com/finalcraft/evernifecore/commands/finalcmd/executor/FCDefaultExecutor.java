@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.executor;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.accessvalidation.CMDAccessValidation;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.CMDHelpType;
@@ -118,7 +119,7 @@ public class FCDefaultExecutor {
             LocaleMessageImp localeMessage = (LocaleMessageImp) localeMessageField.get(null);
             localeMessage.getContextPlaceholders().clear();
             localeMessage.getContextPlaceholders().put("%label%",label);
-            if (sender instanceof Player) localeMessage.getContextPlaceholders().put("%player%",((Player) sender).getPlayerRef().getUsername());
+            if (sender instanceof FPlayer) localeMessage.getContextPlaceholders().put("%player%",((FPlayer) sender).getName());
         }
     }
 

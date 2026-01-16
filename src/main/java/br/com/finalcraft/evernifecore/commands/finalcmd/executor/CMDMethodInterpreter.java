@@ -332,8 +332,8 @@ public class CMDMethodInterpreter {
             if (parameterType.getClazz() == FPlayer.class) { theArgs[index] = sender; continue; }
             if (parameterType.getClazz() == Player.class) { theArgs[index] = sender.getDelegate(Player.class); continue; }
             if (parameterType.getClazz() == CommandSender.class) { theArgs[index] = sender.getDelegate(CommandSender.class); continue; }
-            if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(((Player) sender).getPlayerRef().getUuid()); continue; }
-            if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection((Player) sender, parameterClass); continue; }
+            if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(sender.getUniqueId()); continue; }
+            if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection((FPlayer) sender, parameterClass); continue; }
             if (parameterType.getClazz() == ItemStack.class) {
                 theArgs[index] = FCHytaleUtil.getPlayersHeldItem((FPlayer) sender);
                 if (theArgs[index] == null){

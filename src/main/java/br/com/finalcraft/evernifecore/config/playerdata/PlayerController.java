@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.config.playerdata;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.config.settings.ECSettings;
@@ -296,8 +297,8 @@ public class PlayerController {
         return playerData != null ? playerData.getPDSection(pdSectionClass) : null;
     }
 
-    public static <T extends PDSection> T getPDSection(Player player, Class<T> pdSectionClass){
-        PlayerData playerData = getPlayerData(player.getPlayerRef());
+    public static <T extends PDSection> T getPDSection(FPlayer player, Class<T> pdSectionClass){
+        PlayerData playerData = getPlayerData(player);
         return playerData != null ? playerData.getPDSection(pdSectionClass) : null;
     }
 
@@ -312,10 +313,10 @@ public class PlayerController {
         return MAP_OF_PLAYER_DATA.get(uuid);
     }
 
-    public static PlayerData getPlayerData(PlayerRef player){
+    public static PlayerData getPlayerData(FPlayer player){
         Objects.requireNonNull(player, "Player can't be null");
 
-        return MAP_OF_PLAYER_DATA.get(player.getUuid());
+        return MAP_OF_PLAYER_DATA.get(player.getUniqueId());
     }
 
     public static PlayerData getPlayerData(String playerName){

@@ -7,6 +7,7 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.config.settings.ECSettings;
 import br.com.finalcraft.evernifecore.config.uuids.UUIDsController;
 import br.com.finalcraft.evernifecore.listeners.base.ECListener;
+import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCJavaPluginUtil;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
@@ -29,7 +30,7 @@ public class PlayerLoginListener implements ECListener {
         EverNifeCore.instance.getEventRegistry().registerGlobal(PlayerConnectEvent.class, (event) -> {
             var playerRef = event.getHolder().getComponent(PlayerRef.getComponentType());
 
-            PlayerData playerData = PlayerController.getPlayerData(playerRef);
+            PlayerData playerData = PlayerController.getPlayerData(FCHytaleUtil.wrap(playerRef));
 
             if (playerData != null){
                 //In some cases a Player may not have a PlayerData, this usually
@@ -45,7 +46,7 @@ public class PlayerLoginListener implements ECListener {
         EverNifeCore.instance.getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, (event) -> {
             var playerRef = event.getPlayerRef();
 
-            PlayerData playerData = PlayerController.getPlayerData(playerRef);
+            PlayerData playerData = PlayerController.getPlayerData(FCHytaleUtil.wrap(playerRef));
 
             if (playerData != null){
                 //In some cases a Player may not have a PlayerData, this usually

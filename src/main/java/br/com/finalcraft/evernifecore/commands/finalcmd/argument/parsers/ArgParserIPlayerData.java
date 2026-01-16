@@ -10,6 +10,7 @@ import br.com.finalcraft.evernifecore.config.playerdata.IPlayerData;
 import br.com.finalcraft.evernifecore.config.playerdata.PDSection;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
+import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCStringUtil;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
@@ -63,7 +64,10 @@ public class ArgParserIPlayerData extends ArgParser<IPlayerData> {
     public @Nonnull List<String> tabComplete(TabContext tabContext) {
 
         Collection<PlayerData> playerDataList = online
-                ? Universe.get().getPlayers().stream().map(PlayerController::getPlayerData).collect(Collectors.toList())
+                ? Universe.get().getPlayers().stream()
+                .map(FCHytaleUtil::wrap)
+                .map(PlayerController::getPlayerData)
+                .collect(Collectors.toList())
                 : PlayerController.getAllPlayerData();
 
         return playerDataList.stream()
