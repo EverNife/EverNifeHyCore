@@ -2,6 +2,8 @@ package br.com.finalcraft.evernifecore.commands.finalcmd.executor.parameter;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFCommandSender;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.help.HelpContext;
 import br.com.finalcraft.evernifecore.commands.finalcmd.help.HelpLine;
@@ -13,8 +15,11 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 public class CMDParameterType<T> {
 
     public static final CMDParameterType[] ALLOWED_CLASSES = new CMDParameterType[]{
-            CMDParameterType.of(FCommandSender.class).setAllowExtends(true).build(),
-            CMDParameterType.of(FPlayer.class).setAllowExtends(true).setOnlyPlayer(true).build(),
+            CMDParameterType.of(HytaleFCommandSender.class).build(),
+            CMDParameterType.of(HytaleFPlayer.class).setOnlyPlayer(true).build(),
+
+            CMDParameterType.of(FCommandSender.class).build(),
+            CMDParameterType.of(FPlayer.class).setOnlyPlayer(true).build(),
             CMDParameterType.of(String.class).build(),
             CMDParameterType.of(MultiArgumentos.class).build(),
             CMDParameterType.of(HelpContext.class).build(),
