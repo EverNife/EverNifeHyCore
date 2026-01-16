@@ -1,9 +1,9 @@
 package br.com.finalcraft.evernifecore.commands.misc;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.version.FCJavaVersion;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 public class CMDSvInfo {
 

@@ -1,10 +1,10 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.argument;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgParseException;
 import br.com.finalcraft.evernifecore.commands.finalcmd.tab.ITabParser;
 import com.google.common.collect.ImmutableList;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;

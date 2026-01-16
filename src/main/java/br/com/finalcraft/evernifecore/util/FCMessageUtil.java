@@ -1,12 +1,11 @@
 package br.com.finalcraft.evernifecore.util;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.Collection;
 

@@ -3,7 +3,6 @@ package br.com.finalcraft.evernifecore.config.playerdata;
 import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.cooldown.PlayerCooldown;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.UUID;
 

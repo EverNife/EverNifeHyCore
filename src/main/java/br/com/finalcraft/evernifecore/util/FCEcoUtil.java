@@ -5,7 +5,6 @@ import br.com.finalcraft.evernifecore.config.playerdata.IPlayerData;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.economy.EconomyManager;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.Objects;
 

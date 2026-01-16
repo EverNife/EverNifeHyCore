@@ -1,8 +1,8 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.help;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleMessageImp;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 

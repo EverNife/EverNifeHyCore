@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.cooldown;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.config.ConfigManager;
 import br.com.finalcraft.evernifecore.config.yaml.anntation.Loadable;
@@ -10,7 +11,6 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;

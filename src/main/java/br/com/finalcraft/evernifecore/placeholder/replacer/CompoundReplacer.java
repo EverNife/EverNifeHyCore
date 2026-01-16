@@ -1,8 +1,8 @@
 package br.com.finalcraft.evernifecore.placeholder.replacer;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.integration.placeholders.PAPIIntegration;
 import br.com.finalcraft.evernifecore.util.commons.Tuple;
-import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import jakarta.annotation.Nullable;
 
 import java.util.ArrayList;

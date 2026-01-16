@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.commands.misc;
 
 import br.com.finalcraft.evernifecore.PermissionNodes;
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.commands.finalcmd.help.HelpLine;
@@ -14,7 +15,6 @@ import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCCommandUtil;
 import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCTextUtil;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import java.util.Comparator;

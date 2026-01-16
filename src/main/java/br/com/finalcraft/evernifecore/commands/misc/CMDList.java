@@ -1,11 +1,11 @@
 package br.com.finalcraft.evernifecore.commands.misc;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.Arg;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.pageviwer.PageViewer;
 import br.com.finalcraft.evernifecore.pageviwer.PageVizualization;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 

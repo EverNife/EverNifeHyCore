@@ -1,11 +1,11 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgInfo;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParser;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.exception.ArgParseException;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;

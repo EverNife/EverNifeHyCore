@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.commands.misc;
 
+import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.dynamiccommand.DynamicCommand;
@@ -8,7 +9,6 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
-import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 
 import java.util.UUID;
 

@@ -1,10 +1,9 @@
 package br.com.finalcraft.evernifecore.integration.placeholders;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.playerdata.IPlayerData;
 import br.com.finalcraft.evernifecore.exeptions.HytaleDoesNotHaveTheMinecraftEquivalentYet;
 import br.com.finalcraft.evernifecore.placeholder.replacer.RegexReplacer;
-import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

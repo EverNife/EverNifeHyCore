@@ -1,9 +1,9 @@
 package br.com.finalcraft.evernifecore.fancytext;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import net.kyori.adventure.text.Component;
 
 import java.util.Map;
