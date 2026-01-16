@@ -1,6 +1,8 @@
 package br.com.finalcraft.evernifecore.scheduler;
 
-import java.util.concurrent.TimeUnit;
+import com.hypixel.hytale.server.core.universe.world.World;
+
+import java.util.concurrent.*;
 
 public class FCScheduler {
 
@@ -47,4 +49,75 @@ public class FCScheduler {
         }, delayMillis, TimeUnit.MILLISECONDS);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    //  Actions to be Executed on the Main Thread and be Returned to the Parallel Thread
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static class SynchronizedAction {
+
+        public static <T> T runAndGet(World world, Callable<T> callable){
+            if (world.isInThread()) {
+                throw new RejectedExecutionException("You cannot schedule a SynchronizedAction on the World's [" + world.getName() + "] Own Thread!");
+            }
+
+            try {
+                FutureTask<T> futureTask = new FutureTask(callable);
+                CompletableFuture.runAsync(() -> {
+                    futureTask.run();
+                }, world);
+                return futureTask.get();
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static <T> T scheduleAndGet(World world, Callable<T> callable, int delayTicks){
+            if (world.isInThread()) {
+                throw new RejectedExecutionException("You cannot schedule a SynchronizedAction on the World's [" + world.getName() + "] Own Thread!");
+            }
+
+            try {
+                FutureTask<T> futureTask = new FutureTask(callable);
+
+                //TODO Make this respect ticks rather than just wait some random calculated value
+                FCScheduler.runAsync(() -> {
+                    try {
+                        Thread.sleep(delayTicks * 50);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    CompletableFuture.runAsync(() -> {
+                        futureTask.run();
+                    }, world);
+                });
+
+                return futureTask.get();
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static void run(World world, Runnable runnable) {
+            runAndGet(
+                    world,
+                    () -> {
+                        runnable.run();
+                        return null;
+                    }
+            );
+        }
+
+        public static void schedule(World world, Runnable runnable, int delayTicks) {
+            scheduleAndGet(
+                    world,
+                    () -> {
+                        runnable.run();
+                        return null;
+                    },
+                    delayTicks
+            );
+        }
+
+    }
 }
