@@ -36,6 +36,7 @@ import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;

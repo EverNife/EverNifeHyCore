@@ -1,20 +1,13 @@
 package br.com.finalcraft.evernifecore.api.common.commandsender;
 
+import br.com.finalcraft.evernifecore.api.common.IFHasDelegate;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import net.kyori.adventure.text.Component;
-import org.apache.commons.lang3.Validate;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
-public interface FCommandSender {
-
-    public Object getDelegate();
-
-    public default <DELEGATE> DELEGATE getDelegate(Class<DELEGATE> delegateClass) {
-        Validate.isTrue(delegateClass.isAssignableFrom(this.getDelegate().getClass()));
-        return (DELEGATE) getDelegate();
-    }
+public interface FCommandSender extends IFHasDelegate {
 
     String getName();
 

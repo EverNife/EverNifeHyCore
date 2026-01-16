@@ -1,13 +1,14 @@
-package br.com.finalcraft.evernifecore.api.common.commandsender;
+package br.com.finalcraft.evernifecore.api.common.player;
 
-public abstract class BaseFCommandSender<DELEGATE> implements FCommandSender {
+public abstract class BaseFPlayer<DELEGATE> implements FPlayer {
 
     protected final DELEGATE delegate;
 
-    public BaseFCommandSender(DELEGATE delegate) {
+    public BaseFPlayer(DELEGATE delegate) {
         this.delegate = delegate;
     }
 
+    @Override
     public DELEGATE getDelegate() {
         return delegate;
     }
