@@ -50,6 +50,38 @@ public class FCScheduler {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    //  Actions to be Executed on the World Thread
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static void runSync(World world, Runnable runnable){
+        CompletableFuture.runAsync(() -> {
+            runnable.run();
+        }, world);
+    }
+
+    public static void scheduleSync(World world, Runnable runnable, long delayMillis){
+        scheduler.schedule(() -> {
+            CompletableFuture.runAsync(() -> {
+                runnable.run();
+            }, world);
+        }, delayMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static void scheduleSyncInTicks(World world, Runnable runnable, long delayTicks){
+        FCScheduler.runAsync(() -> {
+            try {
+                Thread.sleep(delayTicks * 50); //TODO Make this respect ticks rather than just wait some random calculated value
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            CompletableFuture.runAsync(() -> {
+                runnable.run();
+            }, world);
+        });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     //  Actions to be Executed on the Main Thread and be Returned to the Parallel Thread
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -79,10 +111,9 @@ public class FCScheduler {
             try {
                 FutureTask<T> futureTask = new FutureTask(callable);
 
-                //TODO Make this respect ticks rather than just wait some random calculated value
                 FCScheduler.runAsync(() -> {
                     try {
-                        Thread.sleep(delayTicks * 50);
+                        Thread.sleep(delayTicks * 50); //TODO Make this respect ticks rather than just wait some random calculated value
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
