@@ -89,7 +89,11 @@ public class FCScheduler {
 
         public static <T> T runAndGet(World world, Callable<T> callable){
             if (world.isInThread()) {
-                throw new RejectedExecutionException("You cannot schedule a SynchronizedAction on the World's [" + world.getName() + "] Own Thread!");
+                try {
+                    return callable.call();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             try {
