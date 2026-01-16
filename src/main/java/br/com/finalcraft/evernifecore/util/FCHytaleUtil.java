@@ -29,7 +29,7 @@ public class FCHytaleUtil {
      * @return if the sender is a player.
      */
     public static boolean isNotPlayer(FCommandSender sender) {
-        if (!(sender instanceof FPlayer)) {
+        if (!sender.isPlayer()) {
             ONLY_PLAYERS_CAN_USE_THIS_COMMAND
                     .send(sender);
             return true;

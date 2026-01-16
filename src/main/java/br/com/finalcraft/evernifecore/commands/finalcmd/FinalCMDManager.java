@@ -1,6 +1,8 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.commands.finalcmd.accessvalidation.CMDAccessValidation;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
@@ -9,6 +11,8 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.data.FinalCM
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.data.SubCMDData;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParserManager;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.*;
+import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.hytale.ArgParserFPlayer;
+import br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.hytale.ArgParserPlayerRef;
 import br.com.finalcraft.evernifecore.commands.finalcmd.custom.ICustomFinalCMD;
 import br.com.finalcraft.evernifecore.commands.finalcmd.custom.contexts.CustomizeContext;
 import br.com.finalcraft.evernifecore.commands.finalcmd.executor.CMDMethodInterpreter;
@@ -47,7 +51,6 @@ public class FinalCMDManager {
         ArgParserManager.addGlobalParser(Float.class, ArgParserNumber.class);
         ArgParserManager.addGlobalParser(Double.class, ArgParserNumber.class);
         ArgParserManager.addGlobalParser(NumberWrapper.class, ArgParserNumberWrapper.class);
-        ArgParserManager.addGlobalParser(PlayerRef.class, ArgParserPlayerRef.class);
         ArgParserManager.addGlobalParser(IPlayerData.class, ArgParserIPlayerData.class);
         ArgParserManager.addGlobalParser(Boolean.class, ArgParserBoolean.class);
         ArgParserManager.addGlobalParser(Enum.class, ArgParserEnum.class);
@@ -55,6 +58,12 @@ public class FinalCMDManager {
         ArgParserManager.addGlobalParser(World.class, ArgParserWorld.class);
         ArgParserManager.addGlobalParser(PageVizualization.class, ArgParserPageVizualization.class);
         ArgParserManager.addGlobalParser(FCTimeFrame.class, ArgParserFCTimeFrame.class);
+
+        //Hytale Specific
+        ArgParserManager.addGlobalParser(PlayerRef.class, ArgParserPlayerRef.class);
+        ArgParserManager.addGlobalParser(FPlayer.class, ArgParserFPlayer.class);
+        ArgParserManager.addGlobalParser(HytaleFPlayer.class, ArgParserFPlayer.class);
+
     }
 
     public static boolean registerCommand(@Nonnull JavaPlugin pluginInstance, @Nonnull Class cmdClass) {

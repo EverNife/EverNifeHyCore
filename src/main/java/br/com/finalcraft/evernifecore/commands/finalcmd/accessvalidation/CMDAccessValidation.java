@@ -57,19 +57,19 @@ public abstract class CMDAccessValidation {
         }
 
         public boolean isPlayer(){
-            return sender instanceof Player;
+            return sender.isPlayer();
         }
 
         public PlayerData getPlayerData(){
             if (!isPlayer()) return null;
 
-            return PlayerController.getPlayerData(((Player) sender).getUuid());
+            return PlayerController.getPlayerData(sender.getUniqueId());
         }
 
         public <P extends PDSection> P getPDSection(Class<P> pdSectionClass){
             if (!isPlayer()) return null;
 
-            return PlayerController.getPDSection(((Player) sender).getUuid(), pdSectionClass);
+            return PlayerController.getPDSection(sender.getUniqueId(), pdSectionClass);
         }
 
         public boolean hasProperPermission(){

@@ -1,6 +1,8 @@
-package br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers;
+package br.com.finalcraft.evernifecore.commands.finalcmd.argument.parsers.hytale;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgInfo;
 import br.com.finalcraft.evernifecore.commands.finalcmd.argument.ArgParser;
@@ -22,14 +24,14 @@ public class ArgParserPlayerRef extends ArgParser<PlayerRef> {
 
     @Override
     public PlayerRef parserArgument(@Nonnull FCommandSender sender, @Nonnull Argumento argumento) throws ArgParseException {
-        PlayerRef player = argumento.getPlayer();
+        FPlayer player = argumento.getPlayer();
 
         if (argInfo.isRequired() && player == null){
             FCMessageUtil.playerNotOnline(sender, argumento.toString());
             throw new ArgParseException();
         }
 
-        return player;
+        return ((HytaleFPlayer) player).getPlayerRef();
     }
 
 

@@ -1,9 +1,11 @@
 package br.com.finalcraft.evernifecore.argumento;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.playerdata.PDSection;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
+import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
 import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
@@ -59,10 +61,20 @@ public class Argumento {
         return this.argumento.toUpperCase();
     }
 
-    public PlayerRef getPlayer(){
-        return !argumento.isEmpty() ? Universe.get().getPlayer(argumento, NameMatching.EXACT_IGNORE_CASE) : null;
-    }
+    public FPlayer getPlayer(){
 
+        if (argumento.isEmpty()){
+            return null;
+        }
+
+        PlayerRef player = Universe.get().getPlayer(argumento, NameMatching.EXACT_IGNORE_CASE);
+
+        if (player == null){
+            return null;
+        }
+
+        return FCHytaleUtil.wrap(player);
+    }
 
     public PlayerData getPlayerData(){
         if (argumento.isEmpty()) return null;
