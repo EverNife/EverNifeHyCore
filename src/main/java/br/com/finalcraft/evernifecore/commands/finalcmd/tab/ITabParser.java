@@ -1,7 +1,7 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.tab;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -28,8 +28,8 @@ public interface ITabParser {
             return index > 0 ? args[index - 1] : null;
         }
 
-        public @Nullable Player getPlayer(){
-            return sender instanceof Player ? (Player) sender : null;
+        public @Nullable FPlayer getPlayer(){
+            return sender instanceof FPlayer ? (FPlayer) sender : null;
         }
 
         public @Nonnull FCommandSender getSender() {

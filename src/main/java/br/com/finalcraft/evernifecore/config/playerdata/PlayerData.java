@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.config.playerdata;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.cooldown.Cooldown;
 import br.com.finalcraft.evernifecore.cooldown.PlayerCooldown;
@@ -20,7 +21,7 @@ public class PlayerData implements IPlayerData{
     protected long lastSaved;
 
     //Transient Data
-    protected transient PlayerRef player = null;
+    protected transient FPlayer player = null;
     protected transient boolean recentChanged = false;
 
     // PDSection Controller
@@ -131,7 +132,7 @@ public class PlayerData implements IPlayerData{
         return true;
     }
 
-    public void setPlayer(PlayerRef player){
+    public void setPlayer(FPlayer player){
         this.player = player;
         this.lastSeen = System.currentTimeMillis();
         this.setRecentChanged();
@@ -147,7 +148,7 @@ public class PlayerData implements IPlayerData{
     }
 
     @Override
-    public String getPlayerName() {
+    public String getName() {
         return playerName;
     }
 
@@ -162,13 +163,13 @@ public class PlayerData implements IPlayerData{
     }
 
     @Override
-    public PlayerRef getPlayer(){
+    public FPlayer getPlayer(){
         return player;
     }
 
     @Override
     public boolean isPlayerOnline(){
-        return player != null && player.isValid();
+        return player != null && player.isOnline();
     }
 
     @Override

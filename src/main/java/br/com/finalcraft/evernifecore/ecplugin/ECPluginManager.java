@@ -3,7 +3,7 @@ package br.com.finalcraft.evernifecore.ecplugin;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -58,7 +58,7 @@ public class ECPluginManager {
         ecPluginData.getPlugin().getLogger().atInfo().log("§e[Reloading] §a" + ecPluginData.getPlugin().getName() + " has been reloaded! §7(It took " + FCTimeFrame.of(end - start).getFormattedDiscursive(true) + ")");
 
         //Notify the sender if it's a Player
-        if (sender != null && sender instanceof Player == true){
+        if (sender != null && sender instanceof FPlayer == true){
             FCMessageUtil.pluginHasBeenReloaded(sender, instance.getName());
 //            FCSound.LEVEL_UP.playSoundFor((Player) sender);
         }

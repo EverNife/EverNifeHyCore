@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.listeners;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.config.settings.ECSettings;
@@ -11,6 +12,7 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerSetupConnectEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import org.apache.commons.io.Charsets;
 
 import java.io.File;
@@ -36,7 +38,7 @@ public class PlayerLoginListener implements ECListener {
 
 
                 //[Store an instance of a Player.class] it is a bad practice, but in minecraft, what is not :D
-                playerData.setPlayer(playerRef);
+                playerData.setPlayer(HytaleFPlayer.of(playerRef));
             }
         });
 
@@ -144,7 +146,7 @@ public class PlayerLoginListener implements ECListener {
             String newFileName = (ECSettings.useNamesInsteadOfUUIDToStorePlayerData ? currentName : currentUUID.toString()) + ".yml";
             playerData.getConfig().save(new File(FCJavaPluginUtil.getDataFolder(EverNifeCore.instance), "PlayerData/" + newFileName));
 
-            EverNifeCore.getLog().info("[UUIDsController] [%s] changed his name from %s to %s", currentUUID, playerData.getPlayerName(), currentName);
+            EverNifeCore.getLog().info("[UUIDsController] [%s] changed his name from %s to %s", currentUUID, playerData.getName(), currentName);
             UUIDsController.addOrUpdateUUIDName(currentUUID, currentName);
             PlayerController.getOrCreateOne(currentUUID).hotLoadPDSections();;
         }

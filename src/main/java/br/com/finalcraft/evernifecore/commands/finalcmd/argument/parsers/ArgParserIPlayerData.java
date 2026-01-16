@@ -48,7 +48,7 @@ public class ArgParserIPlayerData extends ArgParser<IPlayerData> {
         }
 
         if (this.online && !playerData.isPlayerOnline()){
-            FCMessageUtil.playerNotOnline(sender, playerData.getPlayerName());
+            FCMessageUtil.playerNotOnline(sender, playerData.getName());
             throw new ArgParseException();
         }
 
@@ -67,7 +67,7 @@ public class ArgParserIPlayerData extends ArgParser<IPlayerData> {
                 : PlayerController.getAllPlayerData();
 
         return playerDataList.stream()
-                .map(playerData -> playerData.getPlayerName())
+                .map(playerData -> playerData.getName())
                 .filter(s -> FCStringUtil.startsWithIgnoreCase(s, tabContext.getLastWord()))
                 .sorted(String.CASE_INSENSITIVE_ORDER)
                 .collect(Collectors.toList());

@@ -1,8 +1,8 @@
 package br.com.finalcraft.evernifecore.config.playerdata;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.cooldown.PlayerCooldown;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.UUID;
@@ -36,8 +36,8 @@ public abstract class PDSection implements IPlayerData{
     }
 
     @Override
-    public String getPlayerName() {
-        return playerData.getPlayerName();
+    public String getName() {
+        return playerData.getName();
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class PDSection implements IPlayerData{
     }
 
     @Override
-    public PlayerRef getPlayer(){
+    public FPlayer getPlayer(){
         return playerData.getPlayer();
     }
 

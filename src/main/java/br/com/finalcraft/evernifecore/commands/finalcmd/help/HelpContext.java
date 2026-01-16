@@ -9,7 +9,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import com.google.common.collect.ImmutableList;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public class HelpContext {
 
         List<Runnable> helpLinesToSend = new ArrayList<>();
 
-        boolean isPlayer = sender instanceof Player;
+        boolean isPlayer = sender instanceof FPlayer;
 
         outer: for (CMDMethodInterpreter subCommand : finalCMDPluginCommand.subCommands) {
             if (!subCommand.getCmdData().getPermission().isEmpty() && !sender.hasPermission(subCommand.getCmdData().getPermission())){

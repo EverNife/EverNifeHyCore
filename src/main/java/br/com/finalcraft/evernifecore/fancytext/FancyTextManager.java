@@ -3,7 +3,7 @@ package br.com.finalcraft.evernifecore.fancytext;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import net.kyori.adventure.text.Component;
 
 import java.util.Map;
@@ -37,7 +37,7 @@ public class FancyTextManager {
         if (fancyFormatter.complexPlaceholder) {
             for (FCommandSender sender : commandSenders) {
                 FancyFormatter formatterClone = fancyFormatter.clone();
-                final boolean isPlayer = sender instanceof Player;
+                final boolean isPlayer = sender instanceof FPlayer;
                 final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(sender.getUniqueId()) : null;
                 
                 for (Map.Entry<String, Object> entry : formatterClone.mapOfPlaceholders.entrySet()) {

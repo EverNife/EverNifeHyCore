@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 import com.hypixel.hytale.server.core.command.system.*;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractAsyncCommand;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractCommandCollection;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -167,7 +167,7 @@ public class FinalCMDPluginCommand extends AbstractCommand {
 
         int index = args.length - 1;
 
-        boolean isPlayer = sender instanceof Player;
+        boolean isPlayer = sender instanceof FPlayer;
 
         //The TabComplete is based on the FirstArg.
         CMDMethodInterpreter interpreter = (args.length == 0 || args[0].isEmpty()) ? null : getSubCommand(args[0]);

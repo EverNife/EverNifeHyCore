@@ -71,8 +71,8 @@ Powerful annotation-based command system with automatic argument parsing, permis
 )
 public void teleportCommand(
         CommandSender sender, 
-        @Arg(name = "<player>") Player target, // <> means notNull
-        @Arg(name = "[destination]") Player destination) { // [] means 'nullable'
+        @Arg(name = "<player>") FPlayer target, // <> means notNull
+        @Arg(name = "[destination]") FPlayer destination) { // [] means 'nullable'
     
     if (destination != null) {
         target.teleport(destination.getLocation());
@@ -144,22 +144,7 @@ Rich text formatting with click/hover events and component chaining.
 ```java
 // Simple usage
 FancyText.of("§aClick here to teleport!")
-    .setHoverText("§7Teleports you to spawn")
-    .setRunCommandAction("/spawn")
-    .send(player);
-
-// Complex formatting with chaining
-FancyFormatter formatter = FancyText.of("§6[Server] ")
-    .append("§fWelcome ", "§7You joined the server!")
-    .append("§e" + player.getName(), "§7Click to view profile", "/profile " + player.getName())
-    .append("§f to our server!");
-    
-formatter.send(player);
-
-// Item display in hover
-FancyText.of("§6Legendary Sword")
-    .setHoverText(player.getItemInHand())
-    .send(player);
+    .send(fplayer);
 ```
 
 ### Player Data Management
@@ -186,7 +171,7 @@ public class MyPlayerData extends PlayerData {
 }
 
 // Usage
-MyPlayerData data = PlayerController.getPlayerData(player, MyPlayerData.class);
+MyPlayerData data = PlayerController.getPlayerData(fPlayer, MyPlayerData.class);
 data.addCoins(100);
 ```
 
@@ -200,15 +185,15 @@ Multi-language support with automatic message formatting.
 public static LocaleMessage WELCOME_MESSAGE;
 
 // Usage
-WELCOME_MESSAGE.send(player, "{player}", player.getName());
+WELCOME_MESSAGE.send(fPlayer, "{player}", fPlayer.getName());
 ```
 
 ## 🔧 Utilities
 
 ### Reflection Utilities
 ```java
-MethodInvoker method = FCReflectionUtil.getMethod(Player.class, "getHandle");
-Object nmsPlayer = method.invoke(player);
+MethodInvoker method = FCReflectionUtil.getMethod(FPlayer.class, "getHandle");
+Object nmsPlayer = method.invoke(fPlayer);
 ```
 
 ## 🔌 Integrations

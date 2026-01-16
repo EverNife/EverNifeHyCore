@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.commands.finalcmd.executor;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.Arg;
@@ -33,10 +34,10 @@ import br.com.finalcraft.evernifecore.util.FCMessageUtil;
 import br.com.finalcraft.evernifecore.util.FCReflectionUtil;
 import br.com.finalcraft.evernifecore.util.commons.Tuple;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
+import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -328,11 +329,13 @@ public class CMDMethodInterpreter {
             Class parameterClass = tuple.getRight();
 
             if (parameterType.getClazz() == FCommandSender.class) { theArgs[index] = sender; continue; }
-            if (parameterType.getClazz() == Player.class) { theArgs[index] = sender; continue; }
+            if (parameterType.getClazz() == FPlayer.class) { theArgs[index] = sender; continue; }
+            if (parameterType.getClazz() == Player.class) { theArgs[index] = sender.getDelegate(Player.class); continue; }
+            if (parameterType.getClazz() == CommandSender.class) { theArgs[index] = sender.getDelegate(CommandSender.class); continue; }
             if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(((Player) sender).getPlayerRef().getUuid()); continue; }
             if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection((Player) sender, parameterClass); continue; }
             if (parameterType.getClazz() == ItemStack.class) {
-                theArgs[index] = FCHytaleUtil.getPlayersHeldItem((Player) sender);
+                theArgs[index] = FCHytaleUtil.getPlayersHeldItem((FPlayer) sender);
                 if (theArgs[index] == null){
                     FCMessageUtil.needsToBeHoldingItem(sender);
                     return;

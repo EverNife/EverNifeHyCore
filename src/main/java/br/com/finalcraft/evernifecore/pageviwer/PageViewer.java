@@ -112,7 +112,7 @@ public class PageViewer<OBJ, COMPARED_VALUE> {
                 if (sortedItem.object instanceof Player) {
                     placeholders.put("%player%", obj -> ((Player) obj).getDisplayName());
                 } else if (sortedItem.object instanceof IPlayerData) {
-                    placeholders.put("%player%", obj -> ((IPlayerData) obj).getPlayerName());
+                    placeholders.put("%player%", obj -> ((IPlayerData) obj).getName());
                 }
             }
 

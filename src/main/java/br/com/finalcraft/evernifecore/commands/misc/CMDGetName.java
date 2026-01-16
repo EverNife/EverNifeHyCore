@@ -17,7 +17,7 @@ public class CMDGetName {
     )
     public void onCommand(FCommandSender sender, @Arg(name = "<PlayerUUID>") UUID playerUUID) {
         PlayerData playerData = PlayerController.getPlayerData(playerUUID);
-        sender.sendMessage("§a [" + playerData.getPlayerName() + "] --> §e" + playerData.getUniqueId());
+        sender.sendMessage("§a [" + playerData.getName() + "] --> §e" + playerData.getUniqueId());
     }
 
 }

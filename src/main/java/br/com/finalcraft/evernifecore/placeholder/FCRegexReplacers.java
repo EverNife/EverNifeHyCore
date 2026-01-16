@@ -10,8 +10,8 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 public class FCRegexReplacers {
 
     public static RegexReplacer<IPlayerData> PLAYER_DATA = new RegexReplacer<IPlayerData>()
-            .addParser("player", IPlayerData::getPlayerName)
-            .addParser("player_name", IPlayerData::getPlayerName)
+            .addParser("player", IPlayerData::getName)
+            .addParser("player_name", IPlayerData::getName)
             .addParser("player_uuid", IPlayerData::getUniqueId)
             .addParser("player_isonline", IPlayerData::isPlayerOnline)
             .addParser("player_lastseen", iPlayerData -> FCTimeUtil.getFormatted(iPlayerData.getLastSeen()))

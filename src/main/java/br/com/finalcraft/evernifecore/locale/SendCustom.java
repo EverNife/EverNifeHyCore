@@ -5,7 +5,7 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.placeholder.replacer.CompoundReplacer;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import com.hypixel.hytale.server.core.universe.Universe;
 import jakarta.annotation.Nullable;
 
@@ -108,8 +108,8 @@ public class SendCustom implements ILocaleMessageBase {
         allPlaceholdersReplacers.addAll(mapOfPlaceholders.entrySet()); //Custom placeholders, created by demand
         allPlaceholdersReplacers.addAll(localeMessageImp.getContextPlaceholders().entrySet()); //Context Placeholders, like %label%
 
-        boolean isPlayer = sender instanceof Player;
-        final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(((Player) sender).getPlayerRef()) : null;
+        boolean isPlayer = sender instanceof FPlayer;
+        final PlayerData playerData = isPlayer ? PlayerController.getPlayerData(sender.getUniqueId()) : null;
         for (Map.Entry<String, Object> entry : allPlaceholdersReplacers) {
             String placeholder = entry.getKey();
             String value;

@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.config.playerdata;
 
 import br.com.finalcraft.evernifecore.EverNifeCore;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.config.settings.ECSettings;
 import br.com.finalcraft.evernifecore.config.uuids.UUIDsController;
@@ -146,15 +147,15 @@ public class PlayerController {
                     playerToRemove = existingUUID;
                 }
 
-                boolean namesAreEqual = playerToKeep.getPlayerName().equalsIgnoreCase(playerToRemove.getPlayerName());
-                String nameEqualMessage = namesAreEqual ? "" : "\nThe PlayerData that was kept has the name [" + playerToKeep.getPlayerName() + "] and the removed is named [" + playerToRemove.getPlayerName() + "]";
+                boolean namesAreEqual = playerToKeep.getName().equalsIgnoreCase(playerToRemove.getName());
+                String nameEqualMessage = namesAreEqual ? "" : "\nThe PlayerData that was kept has the name [" + playerToKeep.getName() + "] and the removed is named [" + playerToRemove.getName() + "]";
 
                 EverNifeCore.getLog().severe("There is a duplicated PlayerData for the UUID [" + playerData.getUniqueId() + "]!" +
                         "\nThis usually happens when you change your server from 'OlineMode=true' to 'OnlineMode=false' and vice versa." +
                         "\nI will try to fix this, the PlayerData that is more recent will be kept and the older one will be moved to the Corrupted Folder!" + nameEqualMessage);
 
                 uuidHashMap.remove(playerToRemove.getUniqueId());
-                nameHashMap.remove(playerToRemove.getPlayerName());
+                nameHashMap.remove(playerToRemove.getName());
                 moveToCorruptedFolder(playerToRemove.getConfig().getTheFile());
 
                 playerData = playerToKeep;
@@ -163,7 +164,7 @@ public class PlayerController {
             //UUID is ok, we can add again or add new
             uuidHashMap.put(playerData.getUniqueId(), playerData);
 
-            PlayerData existingName = nameHashMap.get(playerData.getPlayerName());
+            PlayerData existingName = nameHashMap.get(playerData.getName());
             if (existingName != null){
                 //This will probably happen a lot less than the UUID problem, but if it happens, we will keep the most recent one
 
@@ -178,20 +179,20 @@ public class PlayerController {
                 boolean uuidsAreEqual = playerToKeep.getUniqueId().equals(playerToRemove.getUniqueId());
                 String nameEqualMessage = uuidsAreEqual ? "" : "\nThe PlayerData that was kept has the uuid [" + playerToKeep.getUniqueId() + "] and the removed is named [" + playerToRemove.getUniqueId() + "]";
 
-                EverNifeCore.getLog().severe("There is a duplicated PlayerData for the NAME [" + playerData.getPlayerName() + "]!" +
+                EverNifeCore.getLog().severe("There is a duplicated PlayerData for the NAME [" + playerData.getName() + "]!" +
                         "\nThis usually happens when you change your server from 'OlineMode=true' to 'OnlineMode=false' and vice versa." +
                         "\nI will try to fix this, the PlayerData that is more recent will be kept and the older one will be moved to the Corrupted Folder!" + nameEqualMessage);
 
-                nameHashMap.remove(playerToRemove.getPlayerName());
+                nameHashMap.remove(playerToRemove.getName());
                 moveToCorruptedFolder(playerToRemove.getConfig().getTheFile());
             }
 
             //NAME is ok, we can add again or add new
-            nameHashMap.put(playerData.getPlayerName(), playerData);
+            nameHashMap.put(playerData.getName(), playerData);
 
             UUIDsController.addOrUpdateUUIDName(
                     playerData.getUniqueId(),
-                    playerData.getPlayerName()
+                    playerData.getName()
             );
         }
 
@@ -207,7 +208,7 @@ public class PlayerController {
                     onlinePlayer.getUuid(),
                     onlinePlayer.getUsername()
             );
-            getOrCreateOne(onlinePlayer.getUuid()).setPlayer(onlinePlayer);
+            getOrCreateOne(onlinePlayer.getUuid()).setPlayer(HytaleFPlayer.of(onlinePlayer));
         }
 
         //Different from the behavavior of calling PlayerData::hotLoadPDSections
@@ -244,8 +245,8 @@ public class PlayerController {
             try {
                 playerData.savePlayerData();
             }catch (Throwable e){
-                String playerName = playerData != null && playerData.getPlayerName() != null
-                        ? playerData.getPlayerName()
+                String playerName = playerData != null && playerData.getName() != null
+                        ? playerData.getName()
                         : UUIDsController.getNameFromUUID(uuid);
                 EverNifeCore.getLog().warning("Failed to save PlayerData of [%s] (%s)!", uuid, playerName);
                 e.printStackTrace();
@@ -330,7 +331,7 @@ public class PlayerController {
         PlayerData playerData = getPlayerData(uuid);
         if (playerData == null){
             playerData = addNewPlayerData(uuid);
-            playerData.setPlayer(Universe.get().getPlayer(uuid));
+            playerData.setPlayer(HytaleFPlayer.of(Universe.get().getPlayer(uuid)));
         }
         return playerData;
     }

@@ -5,7 +5,7 @@ import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.fancytext.FancyFormatter;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +58,12 @@ public class SendCustomComplex extends SendCustom {
                 allPlaceholdersReplacers.addAll(sendCustom.mapOfPlaceholders.entrySet()); //Custom placeholders, created by demand
                 allPlaceholdersReplacers.addAll(localeMessageImp.getContextPlaceholders().entrySet()); //Context Placeholders, like %label%
 
-                final PlayerData playerData = PlayerController.getPlayerData(((Player) sender).getPlayerRef());
+                final PlayerData playerData = sender instanceof FPlayer ? PlayerController.getPlayerData(sender.getUniqueId()) : null;
                 for (Map.Entry<String, Object> entry : allPlaceholdersReplacers) {
                     String placeholder = entry.getKey();
                     String value;
                     if (entry.getValue() instanceof Function){
-                        if (sender instanceof Player == false){
+                        if (sender instanceof FPlayer == false){
                             continue; //Only evaluate Player placeholders in this case
                         }
                         value = String.valueOf(((Function<PlayerData, Object>)entry.getValue()).apply(playerData));

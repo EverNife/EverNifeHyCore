@@ -1,8 +1,8 @@
 package br.com.finalcraft.evernifecore.config.playerdata;
 
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.config.Config;
 import br.com.finalcraft.evernifecore.cooldown.PlayerCooldown;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.UUID;
@@ -11,13 +11,13 @@ public interface IPlayerData {
 
     public PlayerData getPlayerData();
 
-    public String getPlayerName();
+    public String getName();
 
     public UUID getUniqueId();
 
     public boolean isPlayerOnline();
 
-    public PlayerRef getPlayer();
+    public FPlayer getPlayer();
 
     public Config getConfig();
 

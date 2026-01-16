@@ -4,7 +4,7 @@ import br.com.finalcraft.evernifecore.EverNifeCore;
 import br.com.finalcraft.evernifecore.ecplugin.ECPluginData;
 import br.com.finalcraft.evernifecore.ecplugin.ECPluginManager;
 import br.com.finalcraft.evernifecore.locale.scanner.FCLocaleScanner;
-import com.hypixel.hytale.server.core.entity.entities.Player;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import java.util.HashMap;
@@ -20,8 +20,12 @@ public class FCLocaleManager {
         return ECPluginManager.getOrCreateECorePluginData(plugin).getPluginLanguage();
     }
 
-    public static String getLangOf(Player player){
-        return PLAYER_LOCALES.get(player.getPlayerRef().getUuid());
+    public static String getLangOf(FPlayer player){
+        return getLangOf(player.getUniqueId());
+    }
+
+    public static String getLangOf(UUID playerUuid){
+        return PLAYER_LOCALES.get(playerUuid);
     }
 
     public static void updateEverNifeCoreLocale(){

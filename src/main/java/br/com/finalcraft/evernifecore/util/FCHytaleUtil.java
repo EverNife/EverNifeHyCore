@@ -1,13 +1,20 @@
 package br.com.finalcraft.evernifecore.util;
 
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFCommandSender;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
+import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.console.ConsoleSender;
+import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+
+import java.util.UUID;
 
 public class FCHytaleUtil {
 
@@ -24,7 +31,7 @@ public class FCHytaleUtil {
      * @return if the sender is a player.
      */
     public static boolean isNotPlayer(FCommandSender sender) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof FPlayer)) {
             ONLY_PLAYERS_CAN_USE_THIS_COMMAND
                     .send(sender);
             return true;
@@ -72,7 +79,21 @@ public class FCHytaleUtil {
         CommandManager.get().handleCommand(delegate, theCommand);
     }
 
-    public static ItemStack getPlayersHeldItem(Player player) {
-        return player.getInventory().getItemInHand();
+    public static ItemStack getPlayersHeldItem(FPlayer player) {
+        Player hytalePlayer = player.getDelegate(Player.class);
+        return hytalePlayer.getInventory().getItemInHand();
     }
+
+    public static FPlayer wrap(Player player){
+        return HytaleFPlayer.of(player);
+    }
+
+    public static FPlayer wrap(PlayerRef playerRef){
+        return HytaleFPlayer.of(playerRef);
+    }
+
+    public static FCommandSender wrap(CommandSender commandSender){
+        return HytaleFCommandSender.of(commandSender);
+    }
+
 }

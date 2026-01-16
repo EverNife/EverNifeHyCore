@@ -13,7 +13,7 @@ public class CMDGetUUID {
             permission = PermissionNodes.EVERNIFECORE_COMMAND_UUIDOF
     )
     public void onCommand(FCommandSender sender, @Arg(name = "<PlayerUUID>") PlayerData playerData) {
-        sender.sendMessage("§a [" + playerData.getPlayerName() + "] --> §e" + playerData.getUniqueId());
+        sender.sendMessage("§a [" + playerData.getName() + "] --> §e" + playerData.getUniqueId());
     }
 
 }
