@@ -24,6 +24,6 @@ public class FCJavaPluginUtil {
 
 
     public static File getDataFolder(JavaPlugin javaPlugin){
-        return new File("mods/" + javaPlugin.getIdentifier().getName() + "/");
+        return new File("mods/" + javaPlugin.getIdentifier().getGroup() + "_" + javaPlugin.getIdentifier().getName() + "/");
     }
 }

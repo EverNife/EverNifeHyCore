@@ -22,7 +22,7 @@ public class DependencyManager extends LibraryManager {
     private final URLClassLoaderHelper classLoader;
 
     public DependencyManager() {
-        super(new JDKLogAdapter(Logger.getLogger("DefaultDependencyManager")), new File("mods/EverNifeHyCore/").toPath());
+        super(new JDKLogAdapter(Logger.getLogger("DefaultDependencyManager")), new File("mods/EverNife_EverNifeHyCore/").toPath());
         classLoader = new URLClassLoaderHelper((URLClassLoader) DependencyManager.class.getClassLoader(), this);
     }
 

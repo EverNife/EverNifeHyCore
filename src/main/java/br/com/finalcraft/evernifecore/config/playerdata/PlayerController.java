@@ -11,6 +11,7 @@ import br.com.finalcraft.evernifecore.ecplugin.ECPluginManager;
 import br.com.finalcraft.evernifecore.listeners.PlayerLoginListener;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCExecutorsUtil;
+import br.com.finalcraft.evernifecore.util.FCJavaPluginUtil;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -31,7 +32,7 @@ public class PlayerController {
 
     private static Map<UUID,PlayerData> MAP_OF_PLAYER_DATA = new HashMap<>();
 
-    private static final File DATA_FOLDER = new File("mods/EverNifeHyCore/");
+    private static final File DATA_FOLDER = FCJavaPluginUtil.getDataFolder(EverNifeCore.instance);
     private static final File PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData");
     private static final File CORRUPTED_PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData-Corrupted");
     private static final File DORMANT_PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData-Dormant");
