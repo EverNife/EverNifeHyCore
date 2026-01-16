@@ -180,14 +180,23 @@ public class CfgLoadableSalvable {
                     configSection.setValue("y", vector3d.getY());
                     configSection.setValue("z", vector3d.getZ());
                 })
-                .setOnConfigLoad(configSection -> new Vector3d(configSection.getInt("x"),configSection.getInt("y"),configSection.getInt("z")));
+                .setOnConfigLoad(configSection -> new Vector3d(
+                        configSection.getInt("x"),
+                        configSection.getInt("y"),
+                        configSection.getInt("z"))
+                );
 
         addLoadableSalvable(Vector3f.class)
                 .setOnConfigSave((configSection, vector3f) -> {
-                    configSection.setValue("yaw", vector3f.getYaw());
-                    configSection.setValue("pitch", vector3f.getPitch());
+                    configSection.setValue("x", vector3f.getX());
+                    configSection.setValue("y", vector3f.getY());
+                    configSection.setValue("z", vector3f.getZ());
                 })
-                .setOnConfigLoad(configSection -> new Vector3f((float) configSection.getDouble("yaw"), (float) configSection.getDouble("pitch")));
+                .setOnConfigLoad(configSection -> new Vector3f(
+                        (float) configSection.getDouble("yaw"),
+                        (float) configSection.getDouble("pitch"),
+                        (float) configSection.getDouble("pitch"))
+                );
 
         addLoadableSalvable(Vector2d.class)
                 .setOnConfigSave((configSection, chunkPos) -> {
@@ -352,7 +361,7 @@ public class CfgLoadableSalvable {
                     Vector3d position = location.getPosition();
                     Vector3f rotation = location.getRotation();
 
-                    return location.getWorld() + " | "  + position.getX() + " " + position.getY() + " " + position.getZ() + " " + rotation.getYaw() + " " + rotation.getPitch();
+                    return location.getWorld() + " | "  + position.getX() + " " + position.getY() + " " + position.getZ() + " " + rotation.getX() + " " + rotation.getY()  + " " + rotation.getZ();
                 })
                 .setOnStringDeserialize(serializedLocation -> {
                     String[] split = serializedLocation.split(Pattern.quote("|")); // WORLD | x y z yaw pitch
@@ -362,11 +371,12 @@ public class CfgLoadableSalvable {
                     Double x = FCInputReader.parseDouble(splitCoords[0]);
                     Double y = FCInputReader.parseDouble(splitCoords[1]);
                     Double z = FCInputReader.parseDouble(splitCoords[2]);
-                    Double yaw = FCInputReader.parseDouble(splitCoords[3]);
-                    Double pitch = FCInputReader.parseDouble(splitCoords[4]);
+                    Double xRotation = FCInputReader.parseDouble(splitCoords[3]);
+                    Double yRotation = FCInputReader.parseDouble(splitCoords[4]);
+                    Double zRotation = FCInputReader.parseDouble(splitCoords[5]);
 
                     Vector3d position = new Vector3d(x,y,z);
-                    Vector3f rotation = new Vector3f(yaw.floatValue(), pitch.floatValue());
+                    Vector3f rotation = new Vector3f(xRotation.floatValue(), yRotation.floatValue(), zRotation.floatValue());
 
                     return new Location(
                             world,
