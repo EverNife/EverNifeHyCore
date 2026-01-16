@@ -2,6 +2,7 @@ package br.com.finalcraft.evernifecore.commands.finalcmd.executor;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
 import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.argumento.Argumento;
 import br.com.finalcraft.evernifecore.argumento.MultiArgumentos;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.Arg;
@@ -38,6 +39,7 @@ import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import me.lucko.spark.hytale.HytaleCommandSender;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -328,10 +330,13 @@ public class CMDMethodInterpreter {
             CMDParameterType parameterType = tuple.getLeft();
             Class parameterClass = tuple.getRight();
 
-            if (parameterType.getClazz() == FCommandSender.class) { theArgs[index] = sender; continue; }
-            if (parameterType.getClazz() == FPlayer.class) { theArgs[index] = sender; continue; }
             if (parameterType.getClazz() == Player.class) { theArgs[index] = sender.getDelegate(Player.class); continue; }
             if (parameterType.getClazz() == CommandSender.class) { theArgs[index] = sender.getDelegate(CommandSender.class); continue; }
+            if (parameterType.getClazz() == HytaleCommandSender.class) { theArgs[index] = sender; continue; }
+            if (parameterType.getClazz() == HytaleFPlayer.class) { theArgs[index] = sender; continue; }
+
+            if (parameterType.getClazz() == FCommandSender.class) { theArgs[index] = sender; continue; }
+            if (parameterType.getClazz() == FPlayer.class) { theArgs[index] = sender; continue; }
             if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(sender.getUniqueId()); continue; }
             if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection((FPlayer) sender, parameterClass); continue; }
             if (parameterType.getClazz() == ItemStack.class) {
