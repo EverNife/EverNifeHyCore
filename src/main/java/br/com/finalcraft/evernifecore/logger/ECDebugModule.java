@@ -5,6 +5,7 @@ import br.com.finalcraft.evernifecore.logger.debug.IDebugModule;
 
 public enum ECDebugModule implements IDebugModule<EverNifeCore, ECDebugModule> {
     LOCALIZATION,
+    HYTALE_FPLAYER,
     PLAYER_DATA,
     ARG_PARSER("Logs related to the CommandSystem '@Arg' Context checks.", true),
     SVDATA_MANAGER(null, true),

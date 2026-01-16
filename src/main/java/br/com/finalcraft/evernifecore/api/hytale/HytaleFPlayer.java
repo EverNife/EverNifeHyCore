@@ -5,13 +5,16 @@ import br.com.finalcraft.evernifecore.api.common.player.BaseFPlayer;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.scheduler.FCScheduler;
 import br.com.finalcraft.evernifecore.util.FCAdventureUtil;
+import com.hypixel.hytale.builtin.teleport.components.TeleportHistory;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Location;
+import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.permissions.PermissionsModule;
@@ -78,63 +81,82 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
     }
 
     public @Nullable Location getLocation() {
-        Ref<EntityStore> playerRef = getPlayerRef().getReference();
+        Ref<EntityStore> ref = getPlayerRef().getReference();
 
-        if (playerRef == null || !playerRef.isValid()) {
+        if (ref == null || !ref.isValid()) {
             return null;
         }
 
-        Store<EntityStore> playerRefStore = playerRef.getStore();
-        if (playerRefStore == null) {
+        Store<EntityStore> store = ref.getStore();
+        if (store == null) {
             return null;
         }
 
-        World world = playerRefStore.getExternalData().getWorld();
+        World world = store.getExternalData().getWorld();
 
         return FCScheduler.SynchronizedAction.runAndGet(world, () -> {
-            TransformComponent transformComponent = playerRefStore.getComponent(playerRef, TransformComponent.getComponentType());
+            TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
             if (transformComponent == null) {
                 return null;
             }
 
-            EntityStore entityStore = playerRefStore.getExternalData();
+            HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
+
+            if (headRotationComponent == null) {
+                return null;
+            }
+
+            EntityStore entityStore = store.getExternalData();
 
             if (entityStore.getWorld() == null){
                 return null;
             }
 
             Vector3d position = transformComponent.getPosition();
-            Vector3f rotation = transformComponent.getRotation();
+            Vector3f rotation = headRotationComponent.getRotation();
 
             return new Location(world.getName(), position, rotation);
         });
     }
 
     public boolean teleportTo(Location targetLocation){
-        Ref<EntityStore> playerRef = getPlayerRef().getReference();
+        Ref<EntityStore> ref = getPlayerRef().getReference();
 
-        if (playerRef == null || !playerRef.isValid()) {
+        if (ref == null || !ref.isValid()) {
             return false;
         }
 
-        Store<EntityStore> playerRefStore = playerRef.getStore();
-        if (playerRefStore == null) {
+        Store<EntityStore> store = ref.getStore();
+        if (store == null) {
             return false;
         }
 
-        World targetWorld = Universe.get().getWorld(targetLocation.getWorld());
+        World world = Universe.get().getWorld(targetLocation.getWorld());
 
-        if (targetWorld == null){
+        if (world == null){
             return false;
         }
 
-        TransformComponent transformComponent = playerRefStore.getComponent(playerRef, TransformComponent.getComponentType());
+        TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
         if (transformComponent == null) {
             return false;
         }
 
-        Teleport teleport = new Teleport(targetWorld, targetLocation.getPosition(), targetLocation.getRotation());
-        playerRefStore.putComponent(playerRef, Teleport.getComponentType(), teleport);
+        HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
+
+//        Vector3f previousBodyRotation = transformComponent.getRotation().clone();
+        Vector3d previousPos = transformComponent.getPosition().clone();
+        Vector3f previousRotation = headRotationComponent.getRotation().clone();
+
+        TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
+        teleportHistoryComponent.append(world, previousPos, previousRotation, "EverNifeCore teleport to " + world.getName());
+        
+        Transform transform = new Transform(targetLocation.getPosition(), targetLocation.getRotation());
+//        Vector3f preRotation = transform.getRotation().clone();
+//        transform.setRotation(new Vector3f(previousBodyRotation.getPitch(), preRotation.getYaw(), previousBodyRotation.getRoll()));
+
+        Teleport teleport = new Teleport(world, transform);
+        store.addComponent(ref, Teleport.getComponentType(), teleport);
 
         EverNifeCore.getLog().debug(() -> {
             Location origin = getLocation();
