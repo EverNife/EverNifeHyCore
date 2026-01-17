@@ -8,8 +8,11 @@ import br.com.finalcraft.evernifecore.cooldown.PlayerCooldown;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class PlayerData implements IPlayerData{
+
+    protected ReentrantLock lock = new ReentrantLock(true);
 
     //PlayerData
     protected final Config config;
@@ -102,32 +105,40 @@ public class PlayerData implements IPlayerData{
         if (this.recentChanged == false){
             return false;
         }
-        this.recentChanged = false;
-        this.lastSaved = System.currentTimeMillis();
 
-        //Player Data
-        config.setValue("PlayerData.Username",this.playerName);
-        config.setValue("PlayerData.UUID",this.uuid);
-        config.setValue("PlayerData.lastSeen",this.lastSeen);
-        config.setValue("PlayerData.lastSaved",this.lastSaved);
+        lock.lock();
+        try {
+            this.recentChanged = false;
+            this.lastSaved = System.currentTimeMillis();
 
-        // Loop all PDSections and save them if needed
-        ArrayList<Map.Entry<Class<? extends PDSection>, PDSection>> entries = new ArrayList<>(MAP_OF_PDSECTIONS.entrySet());
-        for (Map.Entry<Class<? extends PDSection>, PDSection> entry : entries) {
-            Class<? extends PDSection> key = entry.getKey();
-            PDSection pDSection = entry.getValue();
-            try {
-                if (pDSection.recentChanged){
-                    pDSection.savePDSection();
-                    pDSection.recentChanged = false;
+            //Player Data
+            config.setValue("PlayerData.Username",this.playerName);
+            config.setValue("PlayerData.UUID",this.uuid);
+            config.setValue("PlayerData.lastSeen",this.lastSeen);
+            config.setValue("PlayerData.lastSaved",this.lastSaved);
+
+            // Loop all PDSections and save them if needed
+            ArrayList<Map.Entry<Class<? extends PDSection>, PDSection>> entries = new ArrayList<>(MAP_OF_PDSECTIONS.entrySet());
+            for (Map.Entry<Class<? extends PDSection>, PDSection> entry : entries) {
+                Class<? extends PDSection> key = entry.getKey();
+                PDSection pDSection = entry.getValue();
+                try {
+                    if (pDSection.recentChanged){
+                        pDSection.savePDSection();
+                        pDSection.recentChanged = false;
+                    }
+                }catch (Throwable e){
+                    EverNifeCore.getLog().warning("Failed to save PDSection {" + key.getName() + "} at [" + this.getConfig().getTheFile().getAbsolutePath() + "]");
+                    e.printStackTrace();
                 }
-            }catch (Throwable e){
-                EverNifeCore.getLog().warning("Failed to save PDSection {" + key.getName() + "} at [" + this.getConfig().getTheFile().getAbsolutePath() + "]");
-                e.printStackTrace();
             }
+            config.saveAsync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
         }
 
-        config.saveAsync();
         return true;
     }
 

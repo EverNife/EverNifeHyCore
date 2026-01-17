@@ -21,23 +21,20 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 public class PlayerController {
 
-    private static Map<UUID,PlayerData> MAP_OF_PLAYER_DATA = new HashMap<>();
+    private static Map<UUID,PlayerData> MAP_OF_PLAYER_DATA = new ConcurrentHashMap<>();
 
     private static final File DATA_FOLDER = FCJavaPluginUtil.getDataFolder(EverNifeCore.instance);
     private static final File PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData");
     private static final File CORRUPTED_PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData-Corrupted");
     private static final File DORMANT_PLAYER_DATA_FOLDER = new File(DATA_FOLDER, "PlayerData-Dormant");
 
-    private static final Map<Class<? extends PDSection>, PDSectionConfiguration> CONFIGURED_PDSECTIONS = new HashMap();
+    private static final Map<Class<? extends PDSection>, PDSectionConfiguration> CONFIGURED_PDSECTIONS = new ConcurrentHashMap<>();
 
     private static void moveToCorruptedFolder(File playerDataFile){
         try {

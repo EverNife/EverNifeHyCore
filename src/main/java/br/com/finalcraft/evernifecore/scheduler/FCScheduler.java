@@ -54,16 +54,12 @@ public class FCScheduler {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static void runSync(World world, Runnable runnable){
-        CompletableFuture.runAsync(() -> {
-            runnable.run();
-        }, world);
+        world.execute(runnable);
     }
 
     public static void scheduleSync(World world, Runnable runnable, long delayMillis){
         scheduler.schedule(() -> {
-            CompletableFuture.runAsync(() -> {
-                runnable.run();
-            }, world);
+            world.execute(runnable);
         }, delayMillis, TimeUnit.MILLISECONDS);
     }
 
