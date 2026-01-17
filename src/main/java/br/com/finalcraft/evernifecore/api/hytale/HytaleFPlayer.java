@@ -21,6 +21,7 @@ import com.hypixel.hytale.server.core.permissions.PermissionsModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import jakarta.annotation.Nullable;
 import net.kyori.adventure.text.Component;
@@ -100,20 +101,10 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
                 return null;
             }
 
-            HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
+            HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
 
-            if (headRotationComponent == null) {
-                return null;
-            }
-
-            EntityStore entityStore = store.getExternalData();
-
-            if (entityStore.getWorld() == null){
-                return null;
-            }
-
+            Vector3f rotation = headRotation != null ? headRotation.getRotation() : new Vector3f(0.0F, 0.0F, 0.0F);
             Vector3d position = transformComponent.getPosition();
-            Vector3f rotation = headRotationComponent.getRotation();
 
             return new Location(world.getName(), position, rotation);
         });
@@ -144,19 +135,23 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
         HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
 
-//        Vector3f previousBodyRotation = transformComponent.getRotation().clone();
         Vector3d previousPos = transformComponent.getPosition().clone();
         Vector3f previousRotation = headRotationComponent.getRotation().clone();
 
         TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
         teleportHistoryComponent.append(world, previousPos, previousRotation, "EverNifeCore teleport to " + world.getName());
         
-        Transform transform = new Transform(targetLocation.getPosition(), targetLocation.getRotation());
-//        Vector3f preRotation = transform.getRotation().clone();
-//        transform.setRotation(new Vector3f(previousBodyRotation.getPitch(), preRotation.getYaw(), previousBodyRotation.getRoll()));
+        Transform transform = new Transform(targetLocation.getPosition());
 
-        Teleport teleport = new Teleport(world, transform);
-        store.addComponent(ref, Teleport.getComponentType(), teleport);
+        //Load the chunk if already not loaded, this will prevent the player from be teleported OUTSIDE THE FRICKING WORLD
+        WorldChunk worldChunk = world.isInThread()
+                ? world.getChunk(targetLocation.getPosition().hashCode())
+                : world.getChunkAsync(targetLocation.getPosition().hashCode()).join();
+
+        FCScheduler.SynchronizedAction.run(world, () -> {
+            Teleport teleport = new Teleport(world, transform);
+            store.addComponent(ref, Teleport.getComponentType(), teleport);
+        });
 
         EverNifeCore.getLog().debug(() -> {
             Location origin = getLocation();
