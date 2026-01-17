@@ -130,13 +130,14 @@ public class FCScheduler {
         }
 
         public static void run(World world, Runnable runnable) {
-            runAndGet(
-                    world,
-                    () -> {
-                        runnable.run();
-                        return null;
-                    }
-            );
+            if (world.isInThread()) {
+                runnable.run();
+                return;
+            }
+
+            CompletableFuture.runAsync(() -> {
+                runnable.run();
+            }, world).join();
         }
 
         public static void schedule(World world, Runnable runnable, int delayTicks) {
