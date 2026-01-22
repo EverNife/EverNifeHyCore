@@ -3,6 +3,7 @@ package br.com.finalcraft.evernifecore.api.hytale;
 import br.com.finalcraft.evernifecore.EverNifeCore;
 import br.com.finalcraft.evernifecore.api.common.player.BaseFPlayer;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
+import br.com.finalcraft.evernifecore.logger.ECDebugModule;
 import br.com.finalcraft.evernifecore.scheduler.FCScheduler;
 import br.com.finalcraft.evernifecore.util.FCAdventureUtil;
 import com.hypixel.hytale.builtin.teleport.components.TeleportHistory;
@@ -28,6 +29,7 @@ import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
@@ -122,38 +124,46 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
             return false;
         }
 
-        World world = Universe.get().getWorld(targetLocation.getWorld());
+        World targetWorld = Universe.get().getWorld(targetLocation.getWorld());
 
-        if (world == null){
+        if (targetWorld == null){
             return false;
         }
 
-        TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
-        if (transformComponent == null) {
-            return false;
-        }
+        World sourceWorld = store.getExternalData().getWorld();
 
-        HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
+        AtomicReference<TransformComponent> transformComponent = new AtomicReference<>();
+        AtomicReference<HeadRotation> headRotationComponent = new AtomicReference<>();
 
-        Vector3d previousPos = transformComponent.getPosition().clone();
-        Vector3f previousRotation = headRotationComponent.getRotation().clone();
-
-        TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
-        teleportHistoryComponent.append(world, previousPos, previousRotation, "EverNifeCore teleport to " + world.getName());
-        
-        Transform transform = new Transform(targetLocation.getPosition());
-
-        //Load the chunk if already not loaded, this will prevent the player from be teleported OUTSIDE THE FRICKING WORLD
-        WorldChunk worldChunk = world.isInThread()
-                ? world.getChunk(targetLocation.getPosition().hashCode())
-                : world.getChunkAsync(targetLocation.getPosition().hashCode()).join();
-
-        FCScheduler.SynchronizedAction.run(world, () -> {
-            Teleport teleport = new Teleport(world, transform);
-            store.addComponent(ref, Teleport.getComponentType(), teleport);
+        FCScheduler.SynchronizedAction.run(sourceWorld, () -> {
+            //Get these components only inside the sourceWorld
+            transformComponent.set(store.getComponent(ref, TransformComponent.getComponentType()));
+            headRotationComponent.set(store.getComponent(ref, HeadRotation.getComponentType()));
         });
 
-        EverNifeCore.getLog().debug(() -> {
+        if (transformComponent.get() == null) {
+            return false;
+        }
+
+        Vector3d previousPos = transformComponent.get().getPosition().clone();
+        Vector3f previousRotation = headRotationComponent.get() == null
+                ? headRotationComponent.get().getRotation().clone()
+                : new Vector3f(Float.NaN, Float.NaN, Float.NaN);
+
+        //Load the chunk if already not loaded, this will prevent the player from be teleported OUTSIDE THE FRICKING WORLD
+        WorldChunk worldChunk = targetWorld.isInThread()
+                ? targetWorld.getChunk(targetLocation.getPosition().hashCode())
+                : targetWorld.getChunkAsync(targetLocation.getPosition().hashCode()).join();
+
+        FCScheduler.SynchronizedAction.run(targetWorld, () -> {
+            Teleport teleport = new Teleport(targetWorld, targetLocation.getPosition(), new Vector3f());
+            store.addComponent(ref, Teleport.getComponentType(), teleport);
+
+            TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
+            teleportHistoryComponent.append(targetWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + targetLocation);
+        });
+
+        ECDebugModule.HYTALE_WRAPPER_FPLAYER.debugModule(() -> {
             Location origin = getLocation();
             return String.format("[TP] Teleport player %s from %s to %s ", getName(), origin, targetLocation);
         });
