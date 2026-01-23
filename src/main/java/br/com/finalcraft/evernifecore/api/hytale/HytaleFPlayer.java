@@ -124,13 +124,15 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
             return false;
         }
 
-        World targetWorld = Universe.get().getWorld(targetLocation.getWorld());
+        World sourceWorld = store.getExternalData().getWorld();
+
+        World targetWorld = targetLocation.getWorld().equals(sourceWorld.getName())
+                ? sourceWorld
+                : Universe.get().getWorld(targetLocation.getWorld());
 
         if (targetWorld == null){
             return false;
         }
-
-        World sourceWorld = store.getExternalData().getWorld();
 
         AtomicReference<TransformComponent> transformComponent = new AtomicReference<>();
         AtomicReference<HeadRotation> headRotationComponent = new AtomicReference<>();
