@@ -117,19 +117,19 @@ public class FCPlayerInventory implements Salvable {
         return new FCPlayerInventory(storage, armor, hotbar, utility, tools, backpack, extraInvList);
     }
 
-    public ItemStack getHelmet() {
+    public ItemStack getHead() {
         return armor.getItem(0);
     }
 
-    public ItemStack getChestplate() {
+    public ItemStack getChest() {
         return armor.getItem(1);
     }
 
-    public ItemStack getLeggings() {
+    public ItemStack getHands() {
         return armor.getItem(2);
     }
 
-    public ItemStack getBoots() {
+    public ItemStack getLegs() {
         return armor.getItem(3);
     }
 

@@ -2,7 +2,7 @@ package br.com.finalcraft.evernifecore.commands.debug;
 
 
 import br.com.finalcraft.evernifecore.PermissionNodes;
-import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.commands.finalcmd.annotations.FinalCMD;
 import br.com.finalcraft.evernifecore.fancytext.ClickActionType;
 import br.com.finalcraft.evernifecore.itemdatapart.ItemDataPart;
@@ -57,7 +57,7 @@ public class CMDItemInfo {
             aliases = {"iteminfo"},
             permission = PermissionNodes.EVERNIFECORE_COMMAND_ITEMINFO
     )
-    public void iteminfo(FPlayer player, ItemStack heldItem) {
+    public void iteminfo(HytaleFPlayer player, ItemStack heldItem) {
 
         player.sendMessage("&7" + FCColorUtil.stripColor(FCTextUtil.straightLineOf("---------------------------------")));
 
