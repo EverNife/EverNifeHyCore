@@ -10,6 +10,8 @@ import br.com.finalcraft.evernifecore.config.yaml.section.ConfigSection;
 import br.com.finalcraft.evernifecore.fancytext.ClickActionType;
 import br.com.finalcraft.evernifecore.fancytext.FancyFormatter;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
+import br.com.finalcraft.evernifecore.itemdatapart.ItemDataPart;
+import br.com.finalcraft.evernifecore.itemstack.FCItemFactory;
 import br.com.finalcraft.evernifecore.time.DayOfToday;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
@@ -21,6 +23,7 @@ import com.hypixel.hytale.math.vector.Location;
 import com.hypixel.hytale.math.vector.Vector2d;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -384,6 +387,19 @@ public class CfgLoadableSalvable {
                             rotation
                     );
                 });
+        ;
+
+        addLoadableSalvable(ItemStack.class)
+                .setAllowExtends(true)
+                .setOnConfigSave((configSection, itemStack) -> {
+                    configSection.setValue(ItemDataPart.readItem(itemStack));
+                })
+                .setOnConfigLoad(
+                        configSection -> {
+                            Object value = configSection.getValue("");
+                            return FCItemFactory.from((List<String>) value).build();
+                        }
+                )
         ;
 
     }
