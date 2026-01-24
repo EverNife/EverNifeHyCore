@@ -7,11 +7,16 @@ import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.console.ConsoleSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.TargetUtil;
 
 public class FCHytaleUtil {
 
@@ -86,6 +91,16 @@ public class FCHytaleUtil {
 
     public static FCommandSender wrap(CommandSender commandSender){
         return HytaleFCommandSender.of(commandSender);
+    }
+
+    public static Vector3i getTargetBlock(FPlayer player, double maxDistance){
+        Player hyPlayer = ((HytaleFPlayer) player).getPlayer();
+
+        Ref<EntityStore> reference = hyPlayer.getReference();
+
+        Store<EntityStore> store = hyPlayer.getReference().getStore();
+
+        return TargetUtil.getTargetBlock(reference, maxDistance, store);
     }
 
 }

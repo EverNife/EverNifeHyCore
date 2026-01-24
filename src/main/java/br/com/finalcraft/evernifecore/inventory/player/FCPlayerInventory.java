@@ -31,6 +31,10 @@ public class FCPlayerInventory implements Salvable {
 
     protected List<ExtraInv> extraInvs = new ArrayList<>();
 
+    public FCPlayerInventory() {
+
+    }
+
     public FCPlayerInventory(FPlayer player) {
         this(player, ExtraInvManager.getAllFactories());
     }
