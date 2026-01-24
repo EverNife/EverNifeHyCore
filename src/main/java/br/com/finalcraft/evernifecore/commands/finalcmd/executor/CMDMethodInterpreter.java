@@ -31,6 +31,7 @@ import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleMessageImp;
 import br.com.finalcraft.evernifecore.locale.data.FCLocaleData;
 import br.com.finalcraft.evernifecore.locale.scanner.FCLocaleScanner;
+import br.com.finalcraft.evernifecore.scheduler.FCScheduler;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
 import br.com.finalcraft.evernifecore.util.FCHytaleUtil;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
@@ -341,7 +342,12 @@ public class CMDMethodInterpreter {
             if (parameterType.getClazz() == PlayerData.class) { theArgs[index] = PlayerController.getPlayerData(sender.getUniqueId()); continue; }
             if (parameterType.getClazz() == PDSection.class) { theArgs[index] = PlayerController.getPDSection(sender.getUniqueId(), parameterClass); continue; }
             if (parameterType.getClazz() == ItemStack.class) {
-                theArgs[index] = FCHytaleUtil.getPlayersHeldItem((FPlayer) sender);
+
+                HytaleFPlayer player = (HytaleFPlayer) FCHytaleUtil.wrap(sender.getDelegate(Player.class));
+                theArgs[index] = FCScheduler.SynchronizedAction.runAndGet(player.getWorld(), () -> {
+                    return player.getPlayer().getInventory().getItemInHand();
+                });
+
                 if (theArgs[index] == null){
                     FCMessageUtil.needsToBeHoldingItem(sender);
                     return;

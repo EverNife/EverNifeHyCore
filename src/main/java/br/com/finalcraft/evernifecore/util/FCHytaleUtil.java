@@ -77,11 +77,6 @@ public class FCHytaleUtil {
         CommandManager.get().handleCommand(delegate, theCommand);
     }
 
-    public static ItemStack getPlayersHeldItem(FPlayer player) {
-        Player hytalePlayer = player.getDelegate(Player.class);
-        return hytalePlayer.getInventory().getItemInHand();
-    }
-
     public static FPlayer wrap(Player player){
         return HytaleFPlayer.of(player);
     }
