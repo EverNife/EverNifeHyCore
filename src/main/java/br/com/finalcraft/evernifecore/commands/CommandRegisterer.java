@@ -1,5 +1,6 @@
 package br.com.finalcraft.evernifecore.commands;
 
+import br.com.finalcraft.evernifecore.commands.debug.CMDItemInfo;
 import br.com.finalcraft.evernifecore.commands.finalcmd.FinalCMDManager;
 import br.com.finalcraft.evernifecore.commands.misc.*;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;

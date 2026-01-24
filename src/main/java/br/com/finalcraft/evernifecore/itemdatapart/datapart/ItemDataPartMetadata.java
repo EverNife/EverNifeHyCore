@@ -20,8 +20,8 @@ public class ItemDataPartMetadata extends ItemDataPart {
     }
 
     @Override
-    public List<String> read(ItemStack i, List<String> output) {
-        output.add("metadata:" + i.getItemId());
+    public List<String> read(ItemStack itemStack, List<String> output) {
+        output.add("metadata:" + itemStack.getMetadata().toJson());
         return output;
     }
 
