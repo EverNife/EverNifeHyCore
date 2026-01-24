@@ -96,12 +96,12 @@ public class FCPlayerInventory implements Salvable {
 
     @Loadable
     public static FCPlayerInventory onConfigLoad(ConfigSection section){
-        GenericInventory storage  = section.getLoadable("storage", GenericInventory.class);
-        GenericInventory armor    = section.getLoadable("armor", GenericInventory.class);
-        GenericInventory hotbar   = section.getLoadable("hotbar", GenericInventory.class);
-        GenericInventory utility  = section.getLoadable("utility", GenericInventory.class);
-        GenericInventory tools    = section.getLoadable("tools", GenericInventory.class);
-        GenericInventory backpack = section.getLoadable("backpack", GenericInventory.class);
+        GenericInventory storage  = section.getLoadable("storage", new GenericInventory());
+        GenericInventory armor    = section.getLoadable("armor", new GenericInventory());
+        GenericInventory hotbar   = section.getLoadable("hotbar", new GenericInventory());
+        GenericInventory utility  = section.getLoadable("utility", new GenericInventory());
+        GenericInventory tools    = section.getLoadable("tools", new GenericInventory());
+        GenericInventory backpack = section.getLoadable("backpack", new GenericInventory());
 
         List<ExtraInv> extraInvList = new ArrayList<>();
         for (String extraInvKey : section.getKeys("extra")) {

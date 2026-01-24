@@ -62,7 +62,7 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
     @Override
     public void sendMessage(@NonNull String message) {
-        getPlayerRef().sendMessage(Message.raw(message));
+        sendMessage(FancyText.of(message.replace("§","&")));
     }
 
     @Override

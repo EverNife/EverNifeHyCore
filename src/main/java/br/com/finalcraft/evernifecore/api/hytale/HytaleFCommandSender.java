@@ -50,7 +50,7 @@ public abstract class HytaleFCommandSender<DELEGATE> extends BaseFCommandSender<
 
         @Override
         public void sendMessage(String message) {
-            getDelegate().sendMessage(Message.raw(message));
+            sendMessage(FancyText.of(message.replace("§","&")));
         }
 
         @Override
@@ -83,7 +83,7 @@ public abstract class HytaleFCommandSender<DELEGATE> extends BaseFCommandSender<
 
         @Override
         public void sendMessage(String message) {
-            getDelegate().sendMessage(Message.raw(message));
+            sendMessage(FancyText.of(message.replace("§","&")));
         }
 
         @Override

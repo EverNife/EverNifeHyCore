@@ -58,7 +58,7 @@ public class ECPluginManager {
         ecPluginData.getPlugin().getLogger().atInfo().log("§e[Reloading] §a" + ecPluginData.getPlugin().getName() + " has been reloaded! §7(It took " + FCTimeFrame.of(end - start).getFormattedDiscursive(true) + ")");
 
         //Notify the sender if it's a Player
-        if (sender != null && sender instanceof FPlayer == true){
+        if (sender != null){
             FCMessageUtil.pluginHasBeenReloaded(sender, instance.getName());
 //            FCSound.LEVEL_UP.playSoundFor((Player) sender);
         }
