@@ -13,7 +13,6 @@ import br.com.finalcraft.evernifecore.util.FCColorUtil;
 import br.com.finalcraft.evernifecore.util.FCTextUtil;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 
-
 import java.util.stream.Collectors;
 
 public class CMDItemInfo {

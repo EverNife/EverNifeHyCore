@@ -1,9 +1,9 @@
 package br.com.finalcraft.evernifecore.itemstack.itembuilder;
 
+import br.com.finalcraft.evernifecore.itemdatapart.ItemDataPart;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import jakarta.annotation.Nonnull;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FCItemBuilder {
@@ -14,6 +14,11 @@ public class FCItemBuilder {
         this.itemStack = itemStack;
     }
 
+    public ItemStack build(){
+        return itemStack.withQuantity(itemStack.getQuantity() == 1 ? 2 : 1)
+                .withQuantity(itemStack.getQuantity());
+    }
+
     /**
      * Read the ItemStack to a DataPart String List
      *
@@ -21,13 +26,7 @@ public class FCItemBuilder {
      */
     @Nonnull
     public List<String> toDataPart(){
-        return Arrays.asList("");
+        return ItemDataPart.readItem(this.build());
     }
-
-    public ItemStack build(){
-        return itemStack.withQuantity(itemStack.getQuantity() == 1 ? 2 : 1)
-                .withQuantity(itemStack.getQuantity());
-    }
-
 
 }

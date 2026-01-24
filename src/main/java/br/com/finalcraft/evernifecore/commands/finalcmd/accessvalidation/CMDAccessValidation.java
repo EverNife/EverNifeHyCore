@@ -6,7 +6,6 @@ import br.com.finalcraft.evernifecore.commands.finalcmd.executor.CMDMethodInterp
 import br.com.finalcraft.evernifecore.config.playerdata.PDSection;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerController;
 import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 
 /**
  * Used to validate command access and HelpContext display based on customizable contexts
