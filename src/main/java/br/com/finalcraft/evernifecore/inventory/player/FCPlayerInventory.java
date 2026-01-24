@@ -35,8 +35,8 @@ public class FCPlayerInventory implements Salvable {
 
     }
 
-    public FCPlayerInventory(FPlayer player) {
-        this(player, ExtraInvManager.getAllFactories());
+    public FCPlayerInventory(GenericInventory storage) {
+        this(storage, new GenericInventory(), new GenericInventory(), new GenericInventory(), new GenericInventory(), new GenericInventory(), new ArrayList<>());
     }
 
     public FCPlayerInventory(GenericInventory storage, GenericInventory armor, GenericInventory hotbar, GenericInventory utility, GenericInventory tools, GenericInventory backpack, List<ExtraInv> extraInvs) {
@@ -47,6 +47,10 @@ public class FCPlayerInventory implements Salvable {
         this.tools = tools;
         this.backpack = backpack;
         this.extraInvs = extraInvs;
+    }
+
+    public FCPlayerInventory(FPlayer player) {
+        this(player, ExtraInvManager.getAllFactories());
     }
 
     public FCPlayerInventory(FPlayer player, @Nullable Collection<IExtraInvFactory<?>> inventoryFactories) {
@@ -70,7 +74,6 @@ public class FCPlayerInventory implements Salvable {
                 }
             }
         }
-
     }
 
     @Override
@@ -93,7 +96,6 @@ public class FCPlayerInventory implements Salvable {
 
     @Loadable
     public static FCPlayerInventory onConfigLoad(ConfigSection section){
-
         GenericInventory storage  = section.getLoadable("storage", GenericInventory.class);
         GenericInventory armor    = section.getLoadable("armor", GenericInventory.class);
         GenericInventory hotbar   = section.getLoadable("hotbar", GenericInventory.class);
@@ -151,12 +153,12 @@ public class FCPlayerInventory implements Salvable {
     public void restoreTo(FPlayer player, @Nullable Collection<IExtraInvFactory<?>> inventoryFactories) {
         Inventory playerInventory = ((HytaleFPlayer)player).getPlayer().getInventory();
 
-        if (this.storage != null) storage.restoreTo(playerInventory.getStorage());
-        if (this.armor != null) armor.restoreTo(playerInventory.getStorage());
-        if (this.hotbar != null) hotbar.restoreTo(playerInventory.getStorage());
-        if (this.utility != null) utility.restoreTo(playerInventory.getStorage());
-        if (this.tools != null) tools.restoreTo(playerInventory.getStorage());
-        if (this.backpack != null) backpack.restoreTo(playerInventory.getStorage());
+        storage.restoreTo(playerInventory.getStorage());
+        armor.restoreTo(playerInventory.getStorage());
+        hotbar.restoreTo(playerInventory.getStorage());
+        utility.restoreTo(playerInventory.getStorage());
+        tools.restoreTo(playerInventory.getStorage());
+        backpack.restoreTo(playerInventory.getStorage());
 
         for (IExtraInvFactory factory : inventoryFactories) {
             // We need to ge all factories, rather than use 'this.getExtraInvs()'
