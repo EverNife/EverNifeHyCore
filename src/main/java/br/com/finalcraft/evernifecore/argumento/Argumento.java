@@ -103,7 +103,7 @@ public class Argumento {
 
     public JavaPlugin getPlugin(){
         return (JavaPlugin) PluginManager.get().getPlugins().stream()
-                .filter(pluginBase -> pluginBase.getIdentifier().getName().equalsIgnoreCase(argumento))
+                .filter(pluginBase -> pluginBase.getIdentifier().toString().equalsIgnoreCase(argumento))
                 .findFirst()
                 .orElse(null);
     }
