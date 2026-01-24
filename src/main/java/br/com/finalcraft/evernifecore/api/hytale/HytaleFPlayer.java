@@ -83,6 +83,21 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
         return getPlayerRef() != null && getPlayerRef().isValid();
     }
 
+    public @Nullable World getWorld() {
+        Ref<EntityStore> ref = getPlayerRef().getReference();
+
+        if (ref == null || !ref.isValid()) {
+            return null;
+        }
+
+        Store<EntityStore> store = ref.getStore();
+        if (store == null) {
+            return null;
+        }
+
+        return store.getExternalData().getWorld();
+    }
+
     public @Nullable Location getLocation() {
         Ref<EntityStore> ref = getPlayerRef().getReference();
 
@@ -171,6 +186,21 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
         });
 
         return false;
+    }
+
+    public Player getPlayer() {
+        if (this instanceof PlayerFPlayer) {
+            return ((PlayerFPlayer)this).getDelegate();
+        } else {
+            UUID worldUuid = getPlayerRef().getWorldUuid();
+            World world = Universe.get().getWorld(worldUuid);
+            for (Player player : world.getPlayers()) {
+                if (player.getPlayerRef().getUuid().equals(getPlayerRef().getUuid())) {
+                    return  player;
+                }
+            }
+            throw new IllegalStateException("The PlayerRef for '" + getName() + "' is not inside any World to get its Player variable.");
+        }
     }
 
     public static class PlayerRefFPlayer extends HytaleFPlayer<PlayerRef> {
