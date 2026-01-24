@@ -19,10 +19,7 @@ import br.com.finalcraft.evernifecore.util.FCInputReader;
 import br.com.finalcraft.evernifecore.util.FCReflectionUtil;
 import br.com.finalcraft.evernifecore.util.FCTimeUtil;
 import br.com.finalcraft.evernifecore.util.numberwrapper.NumberWrapper;
-import com.hypixel.hytale.math.vector.Location;
-import com.hypixel.hytale.math.vector.Vector2d;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.math.vector.*;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -184,6 +181,18 @@ public class CfgLoadableSalvable {
                     configSection.setValue("z", vector3d.getZ());
                 })
                 .setOnConfigLoad(configSection -> new Vector3d(
+                        configSection.getDouble("x"),
+                        configSection.getDouble("y"),
+                        configSection.getDouble("z"))
+                );
+
+        addLoadableSalvable(Vector3i.class)
+                .setOnConfigSave((configSection, vector3d) -> {
+                    configSection.setValue("x", vector3d.getX());
+                    configSection.setValue("y", vector3d.getY());
+                    configSection.setValue("z", vector3d.getZ());
+                })
+                .setOnConfigLoad(configSection -> new Vector3i(
                         configSection.getInt("x"),
                         configSection.getInt("y"),
                         configSection.getInt("z"))
