@@ -170,12 +170,12 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
                 ? targetWorld.getChunk(targetLocation.getPosition().hashCode())
                 : targetWorld.getChunkAsync(targetLocation.getPosition().hashCode()).join();
 
-        FCScheduler.SynchronizedAction.run(targetWorld, () -> {
+        FCScheduler.SynchronizedAction.run(sourceWorld, () -> {
             Teleport teleport = new Teleport(targetWorld, targetLocation.getPosition(), new Vector3f());
             store.addComponent(ref, Teleport.getComponentType(), teleport);
 
             TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
-            teleportHistoryComponent.append(targetWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + targetLocation);
+            teleportHistoryComponent.append(sourceWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + targetLocation);
         });
 
         ECDebugModule.HYTALE_WRAPPER_FPLAYER.debugModule(() -> {
