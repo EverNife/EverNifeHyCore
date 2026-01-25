@@ -15,7 +15,7 @@ public class ItemDataPartDurability extends ItemDataPart {
 
         if (durability == -1) {
             EverNifeCore.getLog().warning("Mistake in Config: '" + argument + "' is not a valid '" + used_name + "'. " +
-                    "It needs to be an integer number like '0', '5' or '200'. ");
+                    "It needs to be a number like '0', '5.2' or '200'. ");
             return item;
         }
 

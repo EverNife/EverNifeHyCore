@@ -15,7 +15,7 @@ public class ItemDataPartMaxDurability extends ItemDataPart {
 
         if (maxDurability == -1) {
             EverNifeCore.getLog().warning("Mistake in Config: '" + argument + "' is not a valid '" + used_name + "'. " +
-                    "It needs to be an integer number like '0', '5' or '200'. ");
+                    "It needs to be a number like '0', '5.2' or '200'. ");
             return item;
         }
 
@@ -38,7 +38,7 @@ public class ItemDataPartMaxDurability extends ItemDataPart {
 
     @Override
     public int getPriority() {
-        return PRIORITY_EARLY;
+        return PRIORITY_EARLY - 1;
     }
 
     @Override
