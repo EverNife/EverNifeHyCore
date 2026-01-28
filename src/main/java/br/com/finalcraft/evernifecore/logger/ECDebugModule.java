@@ -4,7 +4,7 @@ import br.com.finalcraft.evernifecore.EverNifeCore;
 import br.com.finalcraft.evernifecore.logger.debug.IDebugModule;
 
 public enum ECDebugModule implements IDebugModule<EverNifeCore, ECDebugModule> {
-    HYTALE_WRAPPER_FPLAYER,
+    HYTALE_FPLAYER("Logs related to the HytaleFPlayer implementation and it's methods.",true),
     ARG_PARSER("Logs related to the CommandSystem '@Arg' Context checks.", true),
     ;
 

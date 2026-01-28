@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.api.hytale;
 
 import br.com.finalcraft.evernifecore.api.common.player.BaseFPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.math.vector.LocPos;
 import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.logger.ECDebugModule;
 import br.com.finalcraft.evernifecore.scheduler.FCScheduler;
@@ -163,27 +164,50 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
         Vector3d previousPos = transformComponent.get().getPosition().clone();
         Vector3f previousRotation = headRotationComponent.get() == null
                 ? headRotationComponent.get().getRotation().clone()
-                : new Vector3f(Float.NaN, Float.NaN, Float.NaN);
+                : new Vector3f(0, 0, 0);
 
         //Load the chunk if already not loaded, this will prevent the player from be teleported OUTSIDE THE FRICKING WORLD
         WorldChunk worldChunk = targetWorld.isInThread()
                 ? targetWorld.getChunk(targetLocation.getPosition().hashCode())
                 : targetWorld.getChunkAsync(targetLocation.getPosition().hashCode()).join();
 
-        FCScheduler.SynchronizedAction.run(sourceWorld, () -> {
-            Teleport teleport = new Teleport(targetWorld, targetLocation.getPosition(), new Vector3f());
-            store.addComponent(ref, Teleport.getComponentType(), teleport);
+        float pitch = targetLocation.getRotation().getX();
+        float yaw = targetLocation.getRotation().getY();
+        float roll = targetLocation.getRotation().getZ();
 
+        FCScheduler.SynchronizedAction.run(sourceWorld, () -> {
+            Teleport teleport = new Teleport(
+                    targetWorld,
+                    targetLocation.getPosition(),
+                    new Vector3f(previousRotation.getPitch(), yaw, previousRotation.getRoll())
+            ).setHeadRotation(new Vector3f(pitch, yaw, roll));
+
+            //Teleport history must be called prior to the teleportation to prevent race conditions
             TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
             teleportHistoryComponent.append(sourceWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + targetLocation);
+
+            //do the actual teleport
+            store.addComponent(ref, Teleport.getComponentType(), teleport);
         });
 
-        ECDebugModule.HYTALE_WRAPPER_FPLAYER.debugModule(() -> {
+        ECDebugModule.HYTALE_FPLAYER.debugModule(() -> {
             Location origin = getLocation();
-            return String.format("[TP] Teleport player %s from %s to %s ", getName(), origin, targetLocation);
+
+            float displayYaw    = Float.isNaN(yaw)   ? previousRotation.getYaw()    * (180.0F / (float) Math.PI) : yaw   * (180.0F / (float) Math.PI);
+            float displayPitch  = Float.isNaN(pitch) ? previousRotation.getPitch()  * (180.0F / (float) Math.PI) : pitch * (180.0F / (float) Math.PI);
+            float displayRoll   = Float.isNaN(roll)  ? previousRotation.getRoll()   * (180.0F / (float) Math.PI) : roll  * (180.0F / (float) Math.PI);
+
+            return String.format("[TP] Teleporting player %s from %s to %s { Yaw:%s, Pitch:%s, Roll:%s }",
+                    getName(),
+                    LocPos.at(origin),
+                    LocPos.at(targetLocation),
+                    displayYaw,
+                    displayPitch,
+                    displayRoll
+            );
         });
 
-        return false;
+        return true;
     }
 
     public Player getPlayer() {
