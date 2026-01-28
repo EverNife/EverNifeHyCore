@@ -174,49 +174,6 @@ public class CfgLoadableSalvable {
                 })
         ;
 
-        addLoadableSalvable(Vector3d.class)
-                .setOnConfigSave((configSection, vector3d) -> {
-                    configSection.setValue("x", vector3d.getX());
-                    configSection.setValue("y", vector3d.getY());
-                    configSection.setValue("z", vector3d.getZ());
-                })
-                .setOnConfigLoad(configSection -> new Vector3d(
-                        configSection.getDouble("x"),
-                        configSection.getDouble("y"),
-                        configSection.getDouble("z"))
-                );
-
-        addLoadableSalvable(Vector3i.class)
-                .setOnConfigSave((configSection, vector3d) -> {
-                    configSection.setValue("x", vector3d.getX());
-                    configSection.setValue("y", vector3d.getY());
-                    configSection.setValue("z", vector3d.getZ());
-                })
-                .setOnConfigLoad(configSection -> new Vector3i(
-                        configSection.getInt("x"),
-                        configSection.getInt("y"),
-                        configSection.getInt("z"))
-                );
-
-        addLoadableSalvable(Vector3f.class)
-                .setOnConfigSave((configSection, vector3f) -> {
-                    configSection.setValue("x", vector3f.getX());
-                    configSection.setValue("y", vector3f.getY());
-                    configSection.setValue("z", vector3f.getZ());
-                })
-                .setOnConfigLoad(configSection -> new Vector3f(
-                        (float) configSection.getDouble("yaw"),
-                        (float) configSection.getDouble("pitch"),
-                        (float) configSection.getDouble("pitch"))
-                );
-
-        addLoadableSalvable(Vector2d.class)
-                .setOnConfigSave((configSection, chunkPos) -> {
-                    configSection.setValue("x", chunkPos.getX());
-                    configSection.setValue("y", chunkPos.getY());
-                })
-                .setOnConfigLoad(configSection -> new Vector2d(configSection.getInt("x"),configSection.getInt("y")));
-
         addLoadableSalvable(FCReflectionUtil.getClass("java.util.LinkedHashMap$LinkedValues"))
                 .setOnConfigSave((section, linkedHashMap) -> {
                     section.setValue("", new ArrayList<>((Collection) linkedHashMap));
@@ -350,6 +307,53 @@ public class CfgLoadableSalvable {
                         }
                 )
         ;
+
+
+        addLoadableSalvable(Vector3d.class)
+                .setOnConfigSave((configSection, vector3d) -> {
+                    configSection.setValue("x", vector3d.getX());
+                    configSection.setValue("y", vector3d.getY());
+                    configSection.setValue("z", vector3d.getZ());
+                })
+                .setOnConfigLoad(configSection -> new Vector3d(
+                        configSection.getDouble("x"),
+                        configSection.getDouble("y"),
+                        configSection.getDouble("z"))
+                );
+
+        addLoadableSalvable(Vector3i.class)
+                .setOnConfigSave((configSection, vector3d) -> {
+                    configSection.setValue("x", vector3d.getX());
+                    configSection.setValue("y", vector3d.getY());
+                    configSection.setValue("z", vector3d.getZ());
+                })
+                .setOnConfigLoad(configSection -> new Vector3i(
+                        configSection.getInt("x"),
+                        configSection.getInt("y"),
+                        configSection.getInt("z"))
+                );
+
+        addLoadableSalvable(Vector3f.class)
+                .setOnConfigSave((configSection, vector3f) -> {
+                    configSection.setValue("x", vector3f.getX());
+                    configSection.setValue("y", vector3f.getY());
+                    configSection.setValue("z", vector3f.getZ());
+                })
+                .setOnConfigLoad(configSection -> new Vector3f(
+                        (float) configSection.getDouble("x"),
+                        (float) configSection.getDouble("y"),
+                        (float) configSection.getDouble("z"))
+                );
+
+        addLoadableSalvable(Vector2d.class)
+                .setOnConfigSave((configSection, chunkPos) -> {
+                    configSection.setValue("x", chunkPos.getX());
+                    configSection.setValue("y", chunkPos.getY());
+                })
+                .setOnConfigLoad(configSection -> new Vector2d(
+                        configSection.getInt("x"),
+                        configSection.getInt("y"))
+                );
 
         addLoadableSalvable(Location.class)
                 .setOnConfigSave((section, location) -> {
