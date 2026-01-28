@@ -105,9 +105,15 @@ public class LocPos implements Comparable<LocPos> {
         return this.x + "|" + this.y + "|" + this.z;
     }
 
-    public static LocPos deserialize(String string){
-        String[] split = string.split("\\|");
-        return new LocPos(Double.parseDouble(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]));
+    public static LocPos deserialize(String s) {
+        int p1 = s.indexOf('|');
+        int p2 = s.indexOf('|', p1 + 1);
+
+        double x = Double.parseDouble(s.substring(0, p1));
+        double y = Double.parseDouble(s.substring(p1 + 1, p2));
+        double z = Double.parseDouble(s.substring(p2 + 1));
+
+        return new LocPos(x, y, z);
     }
 
 }

@@ -53,4 +53,15 @@ public class RegionPos {
         if (x != regionPos.x) return false;
         return z == regionPos.z;
     }
+
+    public String serialize(){
+        return this.x + "|" + this.z;
+    }
+
+    public static RegionPos deserialize(String serialized) {
+        int sep = serialized.indexOf('|');
+        int x = Integer.parseInt(serialized.substring(0, sep));
+        int z = Integer.parseInt(serialized.substring(sep + 1));
+        return new RegionPos(x, z);
+    }
 }

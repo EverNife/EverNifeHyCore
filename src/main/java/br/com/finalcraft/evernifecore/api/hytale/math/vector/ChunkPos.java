@@ -112,9 +112,11 @@ public class ChunkPos {
         return this.x + "|" + this.z;
     }
 
-    public static ChunkPos deserialize(String serialized){
-        String[] split = serialized.split("\\|");
-        return new ChunkPos(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+    public static ChunkPos deserialize(String serialized) {
+        int sep = serialized.indexOf('|');
+        int x = Integer.parseInt(serialized.substring(0, sep));
+        int z = Integer.parseInt(serialized.substring(sep + 1));
+        return new ChunkPos(x, z);
     }
 
 }

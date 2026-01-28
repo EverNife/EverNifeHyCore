@@ -228,13 +228,15 @@ public class BlockPos implements Comparable<BlockPos> {
         return this.x + "|" + this.y + "|" + this.z;
     }
 
-    public static BlockPos deserialize(String string){
-        StringTokenizer tokenizer = new StringTokenizer(string, "|");
-        return new BlockPos(
-                Integer.parseInt(tokenizer.nextToken()),
-                Integer.parseInt(tokenizer.nextToken()),
-                Integer.parseInt(tokenizer.nextToken())
-        );
+    public static BlockPos deserialize(String s) {
+        int p1 = s.indexOf('|');
+        int p2 = s.indexOf('|', p1 + 1);
+
+        int x = Integer.parseInt(s.substring(0, p1));
+        int y = Integer.parseInt(s.substring(p1 + 1, p2));
+        int z = Integer.parseInt(s.substring(p2 + 1));
+
+        return new BlockPos(x, y, z);
     }
 
 }
