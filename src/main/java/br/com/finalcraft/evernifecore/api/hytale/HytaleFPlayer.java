@@ -44,11 +44,6 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
         return new PlayerFPlayer(player);
     }
 
-    @Override
-    public void sendMessage(FancyText fancyText) {
-        fancyText.send(this);
-    }
-
     public abstract PlayerRef getPlayerRef();
 
     @Override
@@ -59,11 +54,6 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
     @Override
     public UUID getUniqueId() {
         return getPlayerRef().getUuid();
-    }
-
-    @Override
-    public void sendMessage(@NonNull String message) {
-        sendMessage(FancyText.of(message.replace("§","&")));
     }
 
     @Override

@@ -23,10 +23,15 @@ public interface FCommandSender extends IFHasDelegate {
 
     boolean hasPermission(@Nonnull String permission);
 
-    void sendMessage(@Nonnull String message);
+    public default void sendMessage(String message) {
+        sendMessage(FancyText.of(message.replace("§","&").replace("●","•")));
+    }
 
-    void sendMessage(@Nonnull FancyText message);
+    public default void sendMessage(@Nonnull FancyText message) {
+        message.send(this);
+    }
 
     void sendMessage(@Nonnull Component component);
+
 
 }
