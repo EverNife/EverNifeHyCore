@@ -1,5 +1,8 @@
 package br.com.finalcraft.evernifecore.config.yaml.helper;
 
+import br.com.finalcraft.evernifecore.api.hytale.math.vector.BlockPos;
+import br.com.finalcraft.evernifecore.api.hytale.math.vector.ChunkPos;
+import br.com.finalcraft.evernifecore.api.hytale.math.vector.RegionPos;
 import br.com.finalcraft.evernifecore.config.fcconfiguration.FCConfigurationManager;
 import br.com.finalcraft.evernifecore.config.fcconfiguration.annotation.FConfig;
 import br.com.finalcraft.evernifecore.config.yaml.anntation.Loadable;
@@ -213,6 +216,7 @@ public class CfgLoadableSalvable {
                 });
 
         createHytaleOnlyLoadableSalvables();
+        createBlocPosLoadableSalvables();
     }
 
     private static void createHytaleOnlyLoadableSalvables(){
@@ -415,5 +419,45 @@ public class CfgLoadableSalvable {
                 )
         ;
 
+    }
+
+    private static void createBlocPosLoadableSalvables(){
+        addLoadableSalvable(BlockPos.class)
+                .setOnConfigSave((configSection, pos) -> {
+                    configSection.setValue("x", pos.getX());
+                    configSection.setValue("y", pos.getY());
+                    configSection.setValue("z", pos.getZ());
+                })
+                .setOnConfigLoad(configSection -> new BlockPos(
+                        configSection.getInt("x"),
+                        configSection.getInt("y"),
+                        configSection.getInt("z")
+                ))
+                .setOnStringSerialize(BlockPos::serialize)
+                .setOnStringDeserialize(BlockPos::deserialize);
+
+        addLoadableSalvable(ChunkPos.class)
+                .setOnConfigSave((configSection, pos) -> {
+                    configSection.setValue("x", pos.getX());
+                    configSection.setValue("z", pos.getZ());
+                })
+                .setOnConfigLoad(configSection -> new ChunkPos(
+                        configSection.getInt("x"),
+                        configSection.getInt("z")
+                ))
+                .setOnStringSerialize(ChunkPos::serialize)
+                .setOnStringDeserialize(ChunkPos::deserialize);
+
+        addLoadableSalvable(RegionPos.class)
+                .setOnConfigSave((configSection, pos) -> {
+                    configSection.setValue("x", pos.getX());
+                    configSection.setValue("z", pos.getZ());
+                })
+                .setOnConfigLoad(configSection -> new RegionPos(
+                        configSection.getInt("x"),
+                        configSection.getInt("z")
+                ))
+                .setOnStringSerialize(RegionPos::serialize)
+                .setOnStringDeserialize(RegionPos::deserialize);
     }
 }
