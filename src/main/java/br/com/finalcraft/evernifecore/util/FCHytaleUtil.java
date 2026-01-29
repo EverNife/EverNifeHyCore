@@ -5,6 +5,7 @@ import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
 import br.com.finalcraft.evernifecore.api.hytale.HytaleFCommandSender;
 import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.config.settings.ECSettings;
+import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
@@ -199,4 +200,7 @@ public class FCHytaleUtil {
 
     }
 
+    public static void broadcastMessage(String message) {
+        FancyText.of(message).broadcast();
+    }
 }
