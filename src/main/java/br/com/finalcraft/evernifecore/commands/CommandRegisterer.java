@@ -17,6 +17,7 @@ public class CommandRegisterer {
         FinalCMDManager.registerCommand(pluginInstance, CMDECLocale.class);
         FinalCMDManager.registerCommand(pluginInstance, CMDECDynamicCommand.class);
         FinalCMDManager.registerCommand(pluginInstance, CMDList.class);
+        FinalCMDManager.registerCommand(pluginInstance, CMDItemInfo.class);
 
     }
 
