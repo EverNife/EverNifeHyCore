@@ -1,5 +1,7 @@
 package br.com.finalcraft.evernifecore.util;
 
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+
 import java.util.UUID;
 
 public class FCInputReader {
@@ -35,6 +37,10 @@ public class FCInputReader {
         }catch (Exception ignored){
             return null;
         }
+    }
+
+    public static Item parseItem(String item){
+        return Item.getAssetMap().getAsset(item);
     }
 
 }
