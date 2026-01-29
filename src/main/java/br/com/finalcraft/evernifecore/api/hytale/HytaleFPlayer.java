@@ -112,7 +112,7 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
             Vector3f rotation = headRotation != null ? headRotation.getRotation() : new Vector3f(0.0F, 0.0F, 0.0F);
             Vector3d position = transformComponent.getPosition();
 
-            return new Location(world.getName(), position, rotation);
+            return new Location(world.getName(), position.clone(), rotation.clone());
         });
     }
 
