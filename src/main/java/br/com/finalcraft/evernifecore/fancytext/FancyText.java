@@ -169,7 +169,7 @@ public class FancyText {
         }
 
         recentChanged = false;
-        Component textComponent = FCColorUtil.colorfyComponent(this.text);
+        Component textComponent = FCColorUtil.colorfyComponent(this.text.replace("●","•").replace("▶","•"));
 
         ComponentBuilder<?, ?> builder = textComponent.toBuilder();
 
