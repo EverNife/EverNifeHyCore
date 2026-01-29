@@ -117,6 +117,9 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
     }
 
     public boolean teleportTo(Location targetLocation){
+        //Safe copy the reference... hytale location is Mutable!
+        Location safeTargetLocation = new Location(targetLocation.getPosition(), targetLocation.getRotation());
+
         Ref<EntityStore> ref = getPlayerRef().getReference();
 
         if (ref == null || !ref.isValid()) {
@@ -130,9 +133,9 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
         World sourceWorld = store.getExternalData().getWorld();
 
-        World targetWorld = targetLocation.getWorld().equals(sourceWorld.getName())
+        World targetWorld = safeTargetLocation.getWorld().equals(sourceWorld.getName())
                 ? sourceWorld
-                : Universe.get().getWorld(targetLocation.getWorld());
+                : Universe.get().getWorld(safeTargetLocation.getWorld());
 
         if (targetWorld == null){
             return false;
@@ -158,23 +161,23 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
         //Load the chunk if already not loaded, this will prevent the player from be teleported OUTSIDE THE FRICKING WORLD
         WorldChunk worldChunk = targetWorld.isInThread()
-                ? targetWorld.getChunk(targetLocation.getPosition().hashCode())
-                : targetWorld.getChunkAsync(targetLocation.getPosition().hashCode()).join();
+                ? targetWorld.getChunk(safeTargetLocation.getPosition().hashCode())
+                : targetWorld.getChunkAsync(safeTargetLocation.getPosition().hashCode()).join();
 
-        float pitch = targetLocation.getRotation().getX();
-        float yaw = targetLocation.getRotation().getY();
-        float roll = targetLocation.getRotation().getZ();
+        float pitch = safeTargetLocation.getRotation().getX();
+        float yaw = safeTargetLocation.getRotation().getY();
+        float roll = safeTargetLocation.getRotation().getZ();
 
         FCScheduler.SynchronizedAction.run(sourceWorld, () -> {
             Teleport teleport = new Teleport(
                     targetWorld,
-                    targetLocation.getPosition(),
+                    safeTargetLocation.getPosition(),
                     new Vector3f(previousRotation.getPitch(), yaw, previousRotation.getRoll())
             ).setHeadRotation(new Vector3f(pitch, yaw, roll));
 
             //Teleport history must be called prior to the teleportation to prevent race conditions
             TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
-            teleportHistoryComponent.append(sourceWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + targetLocation);
+            teleportHistoryComponent.append(sourceWorld, previousPos, previousRotation, "[EC] teleport " + getPlayerRef().getUsername() +   " to " + safeTargetLocation);
 
             //do the actual teleport
             store.addComponent(ref, Teleport.getComponentType(), teleport);
@@ -190,7 +193,7 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
             return String.format("[TP] Teleporting player %s from %s to %s { Yaw:%s, Pitch:%s, Roll:%s }",
                     getName(),
                     LocPos.at(origin),
-                    LocPos.at(targetLocation),
+                    LocPos.at(safeTargetLocation),
                     displayYaw,
                     displayPitch,
                     displayRoll
