@@ -32,7 +32,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class FCHytaleUtil {
 
@@ -147,25 +149,20 @@ public class FCHytaleUtil {
 
             Location location = hytaleFPlayer.getLocation();
 
-            ListTransaction<ItemStackTransaction> exceededItems = hytalePlayer.getInventory()
+            ListTransaction<ItemStackTransaction> transactionList = hytalePlayer.getInventory()
                     .getCombinedHotbarFirst()
                     .addItemStacks(itemStacks);
 
-            Store<EntityStore> store = world.getEntityStore().getStore();
+            List<ItemStack> exceededItems = transactionList.getList().stream()
+                    .map(ItemStackTransaction::getRemainder)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
 
             if (exceededItems.size() > 0 && dropIfExceeded) {
 
-                int droppedAmount = 0;
+                Store<EntityStore> store = world.getEntityStore().getStore();
 
-                for (ItemStackTransaction itemStackTransaction : exceededItems.getList()) {
-                    ItemStack remainder = itemStackTransaction.getRemainder();
-
-                    if (remainder == null){
-                        continue;
-                    }
-
-                    droppedAmount++;
-
+                for (ItemStack remainder : exceededItems) {
                     float throwSpeed = 6F;
 
                     Vector3d throwPosition = location.getPosition();
@@ -192,7 +189,7 @@ public class FCHytaleUtil {
 
                 if (ECSettings.WARN_PLAYERS_WHEN_RECEIVED_ITEMS_WERE_SEND_TO_THE_GROUND){
                     YOU_RECEIVED_EXTRA_ITEMS_THAT_WERE_DROPED
-                            .addPlaceholder("%itens_droped%", droppedAmount)
+                            .addPlaceholder("%itens_droped%", exceededItems.size())
                             .send(player);
                 }
             }
