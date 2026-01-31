@@ -118,7 +118,7 @@ public abstract class HytaleFPlayer<DELEGATE> extends BaseFPlayer<DELEGATE> {
 
     public boolean teleportTo(Location targetLocation){
         //Safe copy the reference... hytale location is Mutable!
-        Location safeTargetLocation = new Location(targetLocation.getPosition(), targetLocation.getRotation());
+        Location safeTargetLocation = new Location(targetLocation.getWorld(), targetLocation.getPosition(), targetLocation.getRotation());
 
         Ref<EntityStore> ref = getPlayerRef().getReference();
 
