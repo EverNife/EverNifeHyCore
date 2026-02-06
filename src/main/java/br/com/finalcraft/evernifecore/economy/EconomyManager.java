@@ -1,29 +1,29 @@
 package br.com.finalcraft.evernifecore.economy;
 
 import br.com.finalcraft.evernifecore.config.playerdata.IPlayerData;
-import br.com.finalcraft.evernifecore.exeptions.HytaleDoesNotHaveTheMinecraftEquivalentYet;
+import br.com.finalcraft.evernifecore.integration.VaultIntegration;
 
 public class EconomyManager {
 
     private static IEconomyProvider ECONOMY_PROVIDER = new IEconomyProvider() {
         @Override
         public double ecoGet(IPlayerData playerData) {
-            throw new HytaleDoesNotHaveTheMinecraftEquivalentYet();
+            return VaultIntegration.ecoGet(playerData.getUniqueId());
         }
 
         @Override
         public void ecoGive(IPlayerData playerData, double value) {
-            throw new HytaleDoesNotHaveTheMinecraftEquivalentYet();
+            VaultIntegration.ecoGive(playerData.getUniqueId(), value);
         }
 
         @Override
         public boolean ecoTake(IPlayerData playerData, double value) {
-            throw new HytaleDoesNotHaveTheMinecraftEquivalentYet();
+            return VaultIntegration.ecoTake(playerData.getUniqueId(), value);
         }
 
         @Override
         public void ecoSet(IPlayerData playerData, double value) {
-            throw new HytaleDoesNotHaveTheMinecraftEquivalentYet();
+            VaultIntegration.ecoSet(playerData.getUniqueId(), value);
         }
     };
 

@@ -54,7 +54,7 @@ public class CMDItemInfo {
     private static LocaleMessage ITEM_DATA_PART;
 
     @FinalCMD(
-            aliases = {"iteminfo"},
+            aliases = {"eciteminfo","iteminfo"},
             permission = PermissionNodes.EVERNIFECORE_COMMAND_ITEMINFO
     )
     public void iteminfo(HytaleFPlayer player, ItemStack heldItem) {
