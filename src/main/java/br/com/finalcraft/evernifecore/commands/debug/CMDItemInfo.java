@@ -10,6 +10,7 @@ import br.com.finalcraft.evernifecore.locale.FCLocale;
 import br.com.finalcraft.evernifecore.locale.LocaleMessage;
 import br.com.finalcraft.evernifecore.locale.LocaleType;
 import br.com.finalcraft.evernifecore.util.FCColorUtil;
+import br.com.finalcraft.evernifecore.util.FCItemUtils;
 import br.com.finalcraft.evernifecore.util.FCTextUtil;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 
@@ -61,7 +62,7 @@ public class CMDItemInfo {
 
         player.sendMessage("&7" + FCColorUtil.stripColor(FCTextUtil.straightLineOf("---------------------------------")));
 
-        String localizedName = heldItem.getItem().getTranslationProperties().getName();
+        String localizedName = FCItemUtils.getLocalizedName(heldItem);
         String uncolorfiedLocalizedName = FCColorUtil.decolorfy(localizedName);
         LOCALIZED_NAME
                 .addPlaceholder("%localized_name%", localizedName)

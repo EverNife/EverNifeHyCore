@@ -15,7 +15,8 @@ public class FCItemBuilder {
     }
 
     public ItemStack build(){
-        return itemStack.withQuantity(itemStack.getQuantity() == 1 ? 2 : 1)
+        return itemStack
+                .withQuantity(itemStack.getQuantity() == 1 ? 2 : 1) //Enforce cloning the ItemStack
                 .withQuantity(itemStack.getQuantity());
     }
 
