@@ -13,7 +13,10 @@
   "Dependencies": {
     "Hytale:EntityModule": "*"
   },
-  "OptionalDependencies": {},
+  "OptionalDependencies": {
+    "HelpChat:PlaceholderAPI": "*",
+    "TheNewEconomy:VaultUnlocked": "*"
+  },
   "DisabledByDefault": false,
   "Main": "${entry_point}",
   "IncludesAssetPack": true
