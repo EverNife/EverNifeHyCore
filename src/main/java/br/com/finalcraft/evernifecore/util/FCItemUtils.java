@@ -10,7 +10,7 @@ import java.util.Objects;
 public class FCItemUtils {
 
     public static @Nonnull String getLocalizedName(ItemStack itemStack){
-        return getLocalizedName(itemStack);
+        return getLocalizedName(itemStack.getItemId());
     }
 
     public static @Nonnull String getLocalizedName(String itemId){

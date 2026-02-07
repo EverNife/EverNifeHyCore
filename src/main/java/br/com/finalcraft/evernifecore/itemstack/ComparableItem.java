@@ -69,6 +69,11 @@ public class ComparableItem implements Salvable {
         return itemId;
     }
 
+    @Nullable
+    public String getBlockId() {
+        return blockId;
+    }
+
     public String getLocalizedName() {
         if (localized_name == null){
             localized_name = FCItemUtils.getLocalizedName(getItemId());
