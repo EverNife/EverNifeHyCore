@@ -27,12 +27,23 @@ repositories {
     maven {
         url = 'https://repo.alessiodp.com/releases/'//For the custom libby-core
     }
+    repositories {
+        maven {
+            url "https://repo.codemc.io/repository/creatorfromhell/"
+        }
+    }
+    maven {
+        url = 'https://repo.codemc.io/repository/hytale/'
+        url = 'https://repo.helpch.at/releases/'
+    }
 }
 
 dependencies {
     compileOnly fileTree(dir: 'libs')
 
     compileOnly 'net.luckperms:api:5.4'
+    compileOnly 'net.cfh.vault:VaultUnlocked:2.18.3'
+    compileOnly 'at.helpch:placeholderapi-hytale:1.0.4'
 
     implementation("net.kyori:adventure-api:4.26.1")
     implementation("net.kyori:adventure-text-serializer-gson:4.26.1")
