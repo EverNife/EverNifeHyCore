@@ -9,6 +9,7 @@ import br.com.finalcraft.evernifecore.dependencies.DependencyManager;
 import br.com.finalcraft.evernifecore.dependencies.ECoreDependencies;
 import br.com.finalcraft.evernifecore.ecplugin.annotations.ECPlugin;
 import br.com.finalcraft.evernifecore.integration.ECCorePAPIPlaceholders;
+import br.com.finalcraft.evernifecore.integration.placeholders.PAPIIntegration;
 import br.com.finalcraft.evernifecore.listeners.PlayerLoginListener;
 import br.com.finalcraft.evernifecore.listeners.base.ECListener;
 import br.com.finalcraft.evernifecore.logger.ECDebugModule;
@@ -73,7 +74,7 @@ public class EverNifeCore extends JavaPlugin {
 
         getLog().info("§aEverNifeCore successfully started!");
 
-        if (PluginManager.get().getPlugin(new PluginIdentifier("","PlaceholderAPI")) != null){
+        if (PAPIIntegration.isPresent()){
             ECCorePAPIPlaceholders.initialize(this);
         }
     }
