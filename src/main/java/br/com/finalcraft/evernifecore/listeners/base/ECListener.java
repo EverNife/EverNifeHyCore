@@ -22,6 +22,10 @@ public interface ECListener {
 
     public void onRegister();
 
+    public default void unregisterAll() {
+
+    }
+
     public static boolean register(@Nonnull JavaPlugin pluginInstance, ECListener listener){
         try {
             String[] requiredPlugins = listener.requiredPlugins();
