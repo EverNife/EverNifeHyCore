@@ -1,6 +1,7 @@
 package br.com.finalcraft.evernifecore.placeholder.replacer;
 
 import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.hytale.HytaleFPlayer;
 import br.com.finalcraft.evernifecore.integration.placeholders.PAPIIntegration;
 import br.com.finalcraft.evernifecore.util.commons.Tuple;
 import jakarta.annotation.Nullable;
@@ -46,7 +47,7 @@ public class CompoundReplacer {
             text = replacer.apply(text, watcher);
         }
         if (papiUser != null){
-            text = PAPIIntegration.parse(papiUser, text);
+            text = PAPIIntegration.parse(((HytaleFPlayer)papiUser).getPlayerRef(), text);
         }
         return text;
     }
