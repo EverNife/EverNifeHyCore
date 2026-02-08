@@ -159,7 +159,7 @@ public class FCReflectionUtil {
 
         if (annotation == null){//We need to check for annotations on the SuperClasses
             Class father = clazz.getSuperclass();
-            if (father == null || father == Object.class){ //No father to look up
+            if (father != null && father != Object.class){ //Has father to look up
                 return getAnnotationDeeply(father, annotationType);
             }
         }
@@ -295,7 +295,8 @@ public class FCReflectionUtil {
      */
     public static Stream<MethodInvoker> getMethods(Class<?> clazz, Function<Method, Boolean> filter) {
         return Arrays.stream(clazz.getMethods()).filter(method -> filter.apply(method)).map(method -> {
-           return new MethodInvoker() {
+            method.setAccessible(true);
+            return new MethodInvoker() {
                 @Override
                 public Object invoke(Object target, Object... arguments) {
                     try {
@@ -495,6 +496,7 @@ public class FCReflectionUtil {
     public static List<FieldAccessor> getDeclaredFields(Class clazz){
         List<FieldAccessor> fieldAccessorList = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
             fieldAccessorList.add(new FieldAccessor() {
                 @Override
                 @SuppressWarnings("unchecked")
