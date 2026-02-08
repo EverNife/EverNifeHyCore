@@ -8,8 +8,6 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.StringTokenizer;
-
 @Getter
 @EqualsAndHashCode
 public class BlockPos implements Comparable<BlockPos> {

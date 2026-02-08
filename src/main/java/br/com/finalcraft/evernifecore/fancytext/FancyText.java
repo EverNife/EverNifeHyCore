@@ -13,13 +13,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentBuilder;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class FancyText {
 

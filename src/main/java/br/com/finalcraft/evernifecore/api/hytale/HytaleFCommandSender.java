@@ -1,7 +1,6 @@
 package br.com.finalcraft.evernifecore.api.hytale;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.BaseFCommandSender;
-import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.util.FCAdventureUtil;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandSender;

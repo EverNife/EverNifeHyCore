@@ -1,8 +1,6 @@
 package br.com.finalcraft.evernifecore.api.events.reload;
 
-import br.com.finalcraft.evernifecore.api.events.base.ECPlayerDataEvent;
 import br.com.finalcraft.evernifecore.api.events.base.IECBaseEvent;
-import br.com.finalcraft.evernifecore.config.playerdata.PlayerData;
 import br.com.finalcraft.evernifecore.ecplugin.ECPluginData;
 
 /**

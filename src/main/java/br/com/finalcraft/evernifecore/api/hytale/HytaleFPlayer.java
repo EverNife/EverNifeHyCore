@@ -2,7 +2,6 @@ package br.com.finalcraft.evernifecore.api.hytale;
 
 import br.com.finalcraft.evernifecore.api.common.player.BaseFPlayer;
 import br.com.finalcraft.evernifecore.api.hytale.math.vector.LocPos;
-import br.com.finalcraft.evernifecore.fancytext.FancyText;
 import br.com.finalcraft.evernifecore.logger.ECDebugModule;
 import br.com.finalcraft.evernifecore.scheduler.FCScheduler;
 import br.com.finalcraft.evernifecore.util.FCAdventureUtil;

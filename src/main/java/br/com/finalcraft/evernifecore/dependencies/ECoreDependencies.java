@@ -1,7 +1,5 @@
 package br.com.finalcraft.evernifecore.dependencies;
 
-import net.byteflux.libby.Library;
-
 public class ECoreDependencies {
 
     public static void initialize(DependencyManager dependencyManager){

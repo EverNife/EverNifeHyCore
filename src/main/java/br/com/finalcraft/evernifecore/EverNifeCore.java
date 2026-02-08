@@ -15,10 +15,8 @@ import br.com.finalcraft.evernifecore.listeners.base.ECListener;
 import br.com.finalcraft.evernifecore.logger.ECDebugModule;
 import br.com.finalcraft.evernifecore.logger.ECLogger;
 import br.com.finalcraft.evernifecore.thread.SaveConfigThread;
-import com.hypixel.hytale.common.plugin.PluginIdentifier;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
-import com.hypixel.hytale.server.core.plugin.PluginManager;
 import org.jspecify.annotations.NonNull;
 
 
