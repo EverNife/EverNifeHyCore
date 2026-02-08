@@ -1,9 +1,10 @@
 package br.com.finalcraft.evernifecore.ecplugin;
 
 import br.com.finalcraft.evernifecore.api.common.commandsender.FCommandSender;
-import br.com.finalcraft.evernifecore.api.common.player.FPlayer;
+import br.com.finalcraft.evernifecore.api.events.reload.ECPluginReloadEvent;
 import br.com.finalcraft.evernifecore.time.FCTimeFrame;
 import br.com.finalcraft.evernifecore.util.FCMessageUtil;
+import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -63,6 +64,11 @@ public class ECPluginManager {
 //            FCSound.LEVEL_UP.playSoundFor((Player) sender);
         }
 
+        HytaleServer.get()
+                .getEventBus()
+                .dispatchFor(ECPluginReloadEvent.Pre.class)
+                .dispatch(new ECPluginReloadEvent.Pre(ecPluginData));
+
         //Some ECPlugins might have subModules or Addons, reload them if necessary
         for (ECPluginData ecPlugin : new ArrayList<>(EVERNIFECORE_PLUGINS_MAP.values())) {
             if (ecPlugin.canReload()){
@@ -75,6 +81,10 @@ public class ECPluginManager {
             }
         }
 
+        HytaleServer.get()
+                .getEventBus()
+                .dispatchFor(ECPluginReloadEvent.Post.class)
+                .dispatch(new ECPluginReloadEvent.Post(ecPluginData));
     }
 
     public static void removePluginData(String pluginName){
